@@ -13,7 +13,7 @@
 		}
 		
 		if ((strlen($password) < 8) && (strlen($password) > 15)){
-			echo "<b>ERROR:</b> Password must be at least 8 characters";
+			echo "<b>ERROR:</b> Password must be at least 8 characters and less than 15 characters";
 			echo "Please follow this link to return to registration: "."<a href=\"http://localhost:8888/PowerliftingHub/register.php\">Registration</a>";
 			exit;
 		}
