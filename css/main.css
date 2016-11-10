@@ -19,12 +19,12 @@
 .navbar{
     border-radius:0px!important;
     border:none;
-    background-color:#1c2b31;
+    background-color:#0c131b;
     opacity:.70;
 }
 
 .navbar-default .navbar-nav>.active>a, .navbar-default .navbar-nav>.active>a:focus, .navbar-default .navbar-nav>.active>a:hover{
-    background-color: #1c2b31;
+    background-color: #0c131b;
 }
 
 .navBtn{
@@ -32,27 +32,27 @@
     padding-right: 10px;
     margin:10px;
     border-radius:5px;
-    background-color:#1c2b31;
+    background-color:#0c131b;
     border-color:#ffffff;
     color:#ffffff;
 }
 
 #searchInput{
     opacity:.70;
-    background-color:#1c2b31;
+    background-color:#0c131b;
     border-color:#ffffff;
     color:#ffffff;    
 }
 
 #searchBtn{
     opacity:.70;
-    background-color:#1c2b31;
+    background-color:#0c131b;
     border-color:#ffffff;
     color:#ffffff;
 }
 
 .navBtn:hover, #searchBtn:hover, .navBtn:active, #searchBtn:active, .navBtn:focus, #searchBtn:focus{
-    background-color:#0a0f12!important;
+    background-color:#0c131b!important;
     color:#ffffff!important;
 }
 
