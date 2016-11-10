@@ -48,15 +48,112 @@
       <div class="row" id="search">
         <div class="col-md-offset-2 col-md-8">
           <form action="search.php" method="POST">
+          <label id="inputLabel">Want something? We might have it.</label>
           <div class="input-group">
             <input type="text" class="form-control" placeholder="Search for..." id="searchInput">
             <span class="input-group-btn">
-              <input class="btn btn-default" type="submit" value="Search"/>
+              <input class="btn btn-default" type="submit" value="Search" id="searchBtn"/>
             </span>
           </div><!-- /input-group -->
           </form>
       </div>
     </div>
+
+    <div class="navbar navbar-default navbar-fixed-bottom">
+      <div class="container">
+        <p class="navbar-text text-center" id="footerText">© 2016 - OnlineAuction
+        </p>
+      </div>
+    </div>
+
+    <!-- Modals -->
+    <div class="modal fade" id="signIn" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            <h4 class="modal-title" id="myModalLabel">Welcome Back</h4>
+          </div>
+          <div class="modal-body">
+            <form class="form-horizontal" action="login.php" method="POST">
+              <div class="form-group">
+                <label for="inputEmail3" class="col-sm-2 control-label">Email</label>
+                <div class="col-sm-10">
+                  <input type="email" class="form-control" id="inputEmail3" placeholder="Email">
+                </div>
+              </div>
+              <div class="form-group">
+                <label for="inputPassword3" class="col-sm-2 control-label">Password</label>
+                <div class="col-sm-10">
+                  <input type="password" class="form-control" id="inputPassword3" placeholder="Password">
+                </div>
+              </div>
+              <div class="form-group">
+                <div class="col-sm-offset-2 col-sm-10">
+                  <div class="checkbox">
+                    <label>
+                      <input type="checkbox"> Remember me
+                    </label>
+                  </div>
+                </div>
+              </div>
+              <div class="form-group">
+                <div class="col-sm-offset-2 col-sm-10">
+                  <button type="submit" class="btn btn-default">Sign in</button>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="modal fade" id="signUp" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            <h4 class="modal-title" id="myModalLabel">Join the party!</h4>
+          </div>
+          <div class="modal-body">
+            <form class="form-horizontal" action="register.php" method="POST">
+              <div class="form-group">
+                <label for="SignUpFirstName" class="col-sm-2 control-label">Name</label>
+                <div class="col-sm-5">
+                  <input type="text" class="form-control" id="SignUpFirstName" placeholder="First">
+                </div>
+                <div class="col-sm-5">
+                  <input type="text" class="form-control" id="SignUpLastName" placeholder="Last">
+                </div>
+              </div>
+              <div class="form-group">
+                <label for="SignUpEmail" class="col-sm-2 control-label">Email</label>
+                <div class="col-sm-10">
+                  <input type="email" class="form-control" id="SignUpEmail" placeholder="Email">
+                </div>
+              </div>
+              <div class="form-group">
+                <label for="SignUpPassword" class="col-sm-2 control-label">Password</label>
+                <div class="col-sm-10">
+                  <input type="password" class="form-control" id="SignUpPassword" placeholder="Password">
+                </div>
+              </div>
+              <div class="form-group">
+                <label for="SignUpCPassword" class="col-sm-2 control-label">Confirm</label>
+                <div class="col-sm-10">
+                  <input type="password" class="form-control" id="SignUpCPassword" placeholder="Confirm Password">
+                </div>
+              </div>
+              <div class="form-group">
+                <div class="col-sm-offset-2 col-sm-10">
+                  <button type="submit" class="btn btn-default" id="SignUpSubmit">Submit</button>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- Modals End -->
 
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>

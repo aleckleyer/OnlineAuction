@@ -3,8 +3,8 @@
 		require('dbconnect.php');
 		// If the values are posted, insert them into the database.
 		
-		$password = $_POST['password'];
-		$cpassword = $_POST['cpassword'];
+		$password = $_POST['SignUpPassword'];
+		$cpassword = $_POST['SignUpCPassword'];
 		
 		if ($cpassword != $password){
 			echo "<b>ERROR:</b> Passwords do not match</br>";
@@ -18,12 +18,12 @@
 			exit;
 		}
 		
-		if (isset($_POST['submit'])){
-			$email = $_POST['email'];
-			$password = $_POST['password'];
-			$firstname = $_POST['firstname'];
-			$lastname = $_POST['lastname'];
-			$DOB = $_POST['DOB'];
+		if (isset($_POST['SignUpSubmit'])){
+			$email = $_POST['SignUpEmail'];
+			$password = $_POST['SignUpPassword'];
+			$firstname = $_POST['SignUpFirstName'];
+			$lastname = $_POST['SignUpLastName'];
+			//$DOB = $_POST['DOB'];
 
 			$sql = "SELECT * FROM `User` WHERE email='$email'";
 				$result = mysql_query($sql) or die(mysql_error());
@@ -31,7 +31,7 @@
 				if ($count > 0){
 					echo "Username already exists!";
 				} 
-			$query = "INSERT INTO `User` (email, password, FirstName, LastName, DOB) VALUES ('$email', '$password', '$firstname', '$lastname', '$DOB')";
+			$query = "INSERT INTO `User` (Email, password, FirstName, LastName) VALUES ('$email', '$password', '$firstname', '$lastname')";
 			$result = mysql_query($query);
 
 			if($result){
@@ -39,4 +39,6 @@
 				echo $msg;
 			}
 		}
+
+		header("Location:index.php");
 ?>
