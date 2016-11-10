@@ -43,6 +43,9 @@
     <div class="container" id="AuctionsList">
       <div class="row-fluid">
         <div class="col-md-2 product">
+          <div class="row productName text-center">
+            <h5>Product Name</h5>
+          </div>
           <div class="row productImg">
 
           </div>
@@ -50,23 +53,135 @@
             <p class="lead">0:00</p>
           </div>
           <div class="row productBtn">
-            <button class="btn btn-default btn-block">Bid Now</button>
+            <button class="btn btn-default btn-block">$4 Bid Now</button>
           </div>
         </div>
-        <div class="col-md-2 product"></div>
-        <div class="col-md-2 product"></div>
-        <div class="col-md-2 product"></div>
-        <div class="col-md-2 product"></div>
-        <div class="col-md-2 product"></div>
-        <div class="col-md-2 product"></div>
-        <div class="col-md-2 product"></div>
-        <div class="col-md-2 product"></div>
-        <div class="col-md-2 product"></div>
-        <div class="col-md-2 product"></div>
-        <div class="col-md-2 product"></div>
-        <div class="col-md-2 product"></div>
-        <div class="col-md-2 product"></div>
-        <div class="col-md-2 product"></div>
+        <div class="col-md-2 product">
+          <div class="row productName text-center">
+            <h5>Product Name</h5>
+          </div>
+          <div class="row productImg">
+
+          </div>
+          <div class="row productTime text-center">
+            <p class="lead">0:00</p>
+          </div>
+          <div class="row productBtn">
+            <button class="btn btn-default btn-block">$4 Bid Now</button>
+          </div>
+        </div>
+        <div class="col-md-2 product">
+          <div class="row productName text-center">
+            <h5>Product Name</h5>
+          </div>
+          <div class="row productImg">
+
+          </div>
+          <div class="row productTime text-center">
+            <p class="lead">0:00</p>
+          </div>
+          <div class="row productBtn">
+            <button class="btn btn-default btn-block">$4 Bid Now</button>
+          </div>
+        </div>
+        <div class="col-md-2 product">
+          <div class="row productName text-center">
+            <h5>Product Name</h5>
+          </div>
+          <div class="row productImg">
+
+          </div>
+          <div class="row productTime text-center">
+            <p class="lead">0:00</p>
+          </div>
+          <div class="row productBtn">
+            <button class="btn btn-default btn-block">$4 Bid Now</button>
+          </div>
+        </div>
+        <div class="col-md-2 product">
+          <div class="row productName text-center">
+            <h5>Product Name</h5>
+          </div>
+          <div class="row productImg">
+
+          </div>
+          <div class="row productTime text-center">
+            <p class="lead">0:00</p>
+          </div>
+          <div class="row productBtn">
+            <button class="btn btn-default btn-block">$4 Bid Now</button>
+          </div>
+        </div>
+        <div class="col-md-2 product">
+          <div class="row productName text-center">
+            <h5>Product Name</h5>
+          </div>
+          <div class="row productImg">
+
+          </div>
+          <div class="row productTime text-center">
+            <p class="lead">0:00</p>
+          </div>
+          <div class="row productBtn">
+            <button class="btn btn-default btn-block">$4 Bid Now</button>
+          </div>
+        </div>
+        <div class="col-md-2 product">
+          <div class="row productName text-center">
+            <h5>Product Name</h5>
+          </div>
+          <div class="row productImg">
+
+          </div>
+          <div class="row productTime text-center">
+            <p class="lead">0:00</p>
+          </div>
+          <div class="row productBtn">
+            <button class="btn btn-default btn-block">$4 Bid Now</button>
+          </div>
+        </div>
+        <div class="col-md-2 product">
+          <div class="row productName text-center">
+            <h5>Product Name</h5>
+          </div>
+          <div class="row productImg">
+
+          </div>
+          <div class="row productTime text-center">
+            <p class="lead">0:00</p>
+          </div>
+          <div class="row productBtn">
+            <button class="btn btn-default btn-block">$4 Bid Now</button>
+          </div>
+        </div>
+        <div class="col-md-2 product">
+          <div class="row productName text-center">
+            <h5>Product Name</h5>
+          </div>
+          <div class="row productImg">
+
+          </div>
+          <div class="row productTime text-center">
+            <p class="lead">0:00</p>
+          </div>
+          <div class="row productBtn">
+            <button class="btn btn-default btn-block">$4 Bid Now</button>
+          </div>
+        </div>
+        <div class="col-md-2 product">
+          <div class="row productName text-center">
+            <h5>Product Name</h5>
+          </div>
+          <div class="row productImg">
+
+          </div>
+          <div class="row productTime text-center">
+            <p class="lead">0:00</p>
+          </div>
+          <div class="row productBtn">
+            <button class="btn btn-default btn-block">$4 Bid Now</button>
+          </div>
+        </div>
       </div>
     </div>
 
