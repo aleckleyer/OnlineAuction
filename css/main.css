@@ -79,3 +79,31 @@
 #inputLabel{
     color:#ffffff;
 }
+
+#userButton>a>span{
+    color: white;
+}
+
+#AuctionsList{
+    border:1px solid black;
+    border-radius:5px;
+}
+
+.product{
+    border: 1px solid black;
+    margin:18px;
+    border-radius:5px;
+    height:260px;
+}
+
+.productImg{
+    border: 1px solid black;
+    border-radius: 5px;
+    height:150px;
+    margin-top:15px!important;
+}
+
+.productTime{
+    margin-bottom:-10px!important;
+    margin-top:10px!important;
+}
