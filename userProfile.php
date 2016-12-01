@@ -1,4 +1,8 @@
-<!DOCTYPE html>
+<?php
+	session_start();
+	require_once("config/dbcontroller.php");
+	$db_handle = new DBController();
+?>
 <html lang="en">
   <head>
     <meta charset="utf-8">
@@ -11,7 +15,7 @@
 	<link rel="stylesheet" href="css/main.css">
 	<link rel="stylesheet" href="css/profile.css">
 	
-	<script type="text/javascript">
+	<!--script type="text/javascript">
 	!function(a,b){function g(b,c){this.$element=a(b),this.settings=a.extend({},f,c),this.init()}var e="floatlabel",f={slideInput:!0,labelStartTop:"20px",labelEndTop:"10px",paddingOffset:"10px",transitionDuration:.3,transitionEasing:"ease-in-out",labelClass:"",typeMatches:/text|password|email|number|search|url/};g.prototype={init:function(){var a=this,c=this.settings,d=c.transitionDuration,e=c.transitionEasing,f=this.$element,g={"-webkit-transition":"all "+d+"s "+e,"-moz-transition":"all "+d+"s "+e,"-o-transition":"all "+d+"s "+e,"-ms-transition":"all "+d+"s "+e,transition:"all "+d+"s "+e};if("INPUT"===f.prop("tagName").toUpperCase()&&c.typeMatches.test(f.attr("type"))){var h=f.attr("id");h||(h=Math.floor(100*Math.random())+1,f.attr("id",h));var i=f.attr("placeholder"),j=f.data("label"),k=f.data("class");k||(k=""),i&&""!==i||(i="You forgot to add placeholder attribute!"),j&&""!==j||(j=i),this.inputPaddingTop=parseFloat(f.css("padding-top"))+parseFloat(c.paddingOffset),f.wrap('<div class="floatlabel-wrapper" style="position:relative"></div>'),f.before('<label for="'+h+'" class="label-floatlabel '+c.labelClass+" "+k+'">'+j+"</label>"),this.$label=f.prev("label"),this.$label.css({position:"absolute",top:c.labelStartTop,left:f.css("padding-left"),display:"none","-moz-opacity":"0","-khtml-opacity":"0","-webkit-opacity":"0",opacity:"0"}),c.slideInput||f.css({"padding-top":this.inputPaddingTop}),f.on("keyup blur change",function(b){a.checkValue(b)}),b.setTimeout(function(){a.$label.css(g),a.$element.css(g)},100),this.checkValue()}},checkValue:function(a){if(a){var b=a.keyCode||a.which;if(9===b)return}var c=this.$element,d=c.data("flout");""!==c.val()&&c.data("flout","1"),""===c.val()&&c.data("flout","0"),"1"===c.data("flout")&&"1"!==d&&this.showLabel(),"0"===c.data("flout")&&"0"!==d&&this.hideLabel()},showLabel:function(){var a=this;a.$label.css({display:"block"}),b.setTimeout(function(){a.$label.css({top:a.settings.labelEndTop,"-moz-opacity":"1","-khtml-opacity":"1","-webkit-opacity":"1",opacity:"1"}),a.settings.slideInput&&a.$element.css({"padding-top":a.inputPaddingTop}),a.$element.addClass("active-floatlabel")},50)},hideLabel:function(){var a=this;a.$label.css({top:a.settings.labelStartTop,"-moz-opacity":"0","-khtml-opacity":"0","-webkit-opacity":"0",opacity:"0"}),a.settings.slideInput&&a.$element.css({"padding-top":parseFloat(a.inputPaddingTop)-parseFloat(this.settings.paddingOffset)}),a.$element.removeClass("active-floatlabel"),b.setTimeout(function(){a.$label.css({display:"none"})},1e3*a.settings.transitionDuration)}},a.fn[e]=function(b){return this.each(function(){a.data(this,"plugin_"+e)||a.data(this,"plugin_"+e,new g(this,b))})}}(jQuery,window,document);
 
 
@@ -54,7 +58,7 @@ $('.form').find('input, textarea').on('keyup blur focus', function (e) {
 
 });
 
-	</script>
+	</script-->
 	
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -83,10 +87,20 @@ integrity="sha384-Wrgq82RsEean5tP3NK3zWAemiNEXofJsTwTyHmNb/iL3dP/sZJ4+7sOld1uqYJ
           <a class="navbar-brand" href="#">Online Auction</a>
         </div>
         <!-- Collect the nav links, forms, and other content for toggling -->
+		
           <ul class="nav navbar-nav navbar-right">
 			<li>
-			<li>
-				<p style="color:white; padding-top: 16px;">Welcome back, FName! </p>
+			<?php
+			$user_array = $db_handle->runQuery("SELECT FIRSTNAME FROM user where UserID = 1");
+			if(!empty($user_array)){
+				foreach($user_array as $key=>$value){
+			?>
+				<?php 
+				echo "<p style='color:white; padding-top: 16px;'>";
+				echo "Welcome back, ".$user_array[$key]["FIRSTNAME"]."!";
+				echo "</p>";
+				?> 
+			<?php }} ?>	
 			</li>
             <li>
               <button type="button" class="btn btn-default navBtn" data-toggle="modal" data-target="#logOut" id="logOutBtn">
@@ -165,30 +179,35 @@ integrity="sha384-Wrgq82RsEean5tP3NK3zWAemiNEXofJsTwTyHmNb/iL3dP/sZJ4+7sOld1uqYJ
 
 <div class="container" style="margin-top: 30px;">
 <div class="profile-head">
+<?php
+	$user_array = $db_handle->runQuery("SELECT Email, FIRSTNAME, LASTNAME, COUNTRY FROM user where UserID=1");
+	if(!empty($user_array)){
+		foreach($user_array as $key=>$value){
+?>
 <div class="col-md- col-sm-4 col-xs-12">
 <img src="img/smileface.jpg" class="img-responsive" />
-<h6>FName LName</h6>
+<?php
+echo "<h6>";
+echo $user_array[$key]["FIRSTNAME"]." ".$user_array[$key]["LASTNAME"]; 
+echo "</h6>";?>
 </div><!--col-md-4 col-sm-4 col-xs-12 close-->
 
 
 <div class="col-md-5 col-sm-5 col-xs-12">
-<h5>FName LName</h5>
+<h5><?php echo $user_array[$key]["FIRSTNAME"]." ".$user_array[$key]["LASTNAME"]; ?></h5>
 <!--p>Web Designer / Develpor </p-->
 <ul>
 <!--li><span class="glyphicon glyphicon-briefcase"></span> 5 years</li-->
-<li><span class="glyphicon glyphicon-map-marker"></span> U.S.A.</li>
+<li><span class="glyphicon glyphicon-map-marker"></span><?php echo $user_array[$key]["COUNTRY"];?></li>
 <li><span class="glyphicon glyphicon-home"></span> 555 street Address,toedo 43606 U.S.A.</li>
 <li><span class="glyphicon glyphicon-phone"></span> <a href="#" title="call">(+021) 956 789123</a></li>
-<li><span class="glyphicon glyphicon-envelope"></span><a href="#" title="mail">jenifer123@gmail.com</a></li>
+<li><span class="glyphicon glyphicon-envelope"></span><a href="#" title="mail"><?php echo $user_array[$key]["Email"];?></a></li>
 
 </ul>
 
 
 </div><!--col-md-8 col-sm-8 col-xs-12 close-->
-
-
-
-
+	<?php }}?>
 </div><!--profile-head close-->
 </div><!--container close-->
 
@@ -319,27 +338,28 @@ integrity="sha384-Wrgq82RsEean5tP3NK3zWAemiNEXofJsTwTyHmNb/iL3dP/sZJ4+7sOld1uqYJ
   		</div>
   		<!-- END PRODUCTS -->
 	</div>
+	
 	<div class = "row">
 		<h2>Your Listed Products<h2>
 		</div>
+		
 	<div class="row">
     	<!-- BEGIN PRODUCTS -->
+		<?php
+			$product_array = $db_handle->runQuery("SELECT * FROM product ORDER by ProductID ASC");
+			if(!empty($product_array)){
+				foreach($product_array as $key=>$value){
+			
+		?>
   		<div class="col-md-3 col-sm-6">
     		<span class="thumbnail">
-      			<img src="http://placehold.it/500x400" alt="...">
-      			<h4>Product Tittle</h4>
-      			<!--div class="ratings">
-                    <span class="glyphicon glyphicon-star"></span>
-                    <span class="glyphicon glyphicon-star"></span>
-                    <span class="glyphicon glyphicon-star"></span>
-                    <span class="glyphicon glyphicon-star"></span>
-                    <span class="glyphicon glyphicon-star-empty"></span>
-                </div-->
-      			<p>Discription</p>
+      			<img src="product-img/<?php echo $product_array[$key]["Img"]; ?>" alt="...">
+      			<h4><?php echo $product_array[$key]["Name"]; ?></h4>
+      			<p><?php echo $product_array[$key]["Description"]; ?></p>
       			<hr class="line">
       			<div class="row">
       				<div class="col-md-6 col-sm-6">
-      					<p class="price">$29,90</p>
+      					<p class="price"><?php echo "$".$product_array[$key]["Price"];?></p>
       				</div>
       				<div class="col-md-6 col-sm-6">
       					<button class="btn btn-success right" > EDIT ITEM</button>
@@ -348,84 +368,16 @@ integrity="sha384-Wrgq82RsEean5tP3NK3zWAemiNEXofJsTwTyHmNb/iL3dP/sZJ4+7sOld1uqYJ
       			</div>
     		</span>
   		</div>
-  		<div class="col-md-3 col-sm-6">
-    		<span class="thumbnail">
-      			<img src="http://placehold.it/500x400" alt="...">
-      			<h4>Product Tittle</h4>
-      			<!--div class="ratings">
-                    <span class="glyphicon glyphicon-star"></span>
-                    <span class="glyphicon glyphicon-star"></span>
-                    <span class="glyphicon glyphicon-star"></span>
-                    <span class="glyphicon glyphicon-star"></span>
-                    <span class="glyphicon glyphicon-star-empty"></span>
-                </div-->
-      			<p>Discription </p>
-      			<hr class="line">
-      			<div class="row">
-      				<div class="col-md-6 col-sm-6">
-      					<p class="price">$29,90</p>
-      				</div>
-      				<div class="col-md-6 col-sm-6">
-      					<button class="btn btn-success right" > EDIT ITEM</button>
-      				</div>
-      				
-      			</div>
-    		</span>
-  		</div>
-  		<div class="col-md-3 col-sm-6">
-    		<span class="thumbnail">
-      			<img src="http://placehold.it/500x400" alt="...">
-      			<h4>Product Tittle</h4>
-      			<!--div class="ratings">
-                    <span class="glyphicon glyphicon-star"></span>
-                    <span class="glyphicon glyphicon-star"></span>
-                    <span class="glyphicon glyphicon-star"></span>
-                    <span class="glyphicon glyphicon-star"></span>
-                    <span class="glyphicon glyphicon-star-empty"></span>
-                </div-->
-      			<p>Discription</p>
-      			<hr class="line">
-      			<div class="row">
-      				<div class="col-md-6 col-sm-6">
-      					<p class="price">$29,90</p>
-      				</div>
-      				<div class="col-md-6 col-sm-6">
-      					<button class="btn btn-success right" > EDIT ITEM</button>
-      				</div>
-      				
-      			</div>
-    		</span>
-  		</div>
-  		<div class="col-md-3 col-sm-6">
-    		<span class="thumbnail">
-      			<img src="http://placehold.it/500x400" alt="...">
-      			<h4>Product Tittle</h4>
-      			<!--div class="ratings">
-                    <span class="glyphicon glyphicon-star"></span>
-                    <span class="glyphicon glyphicon-star"></span>
-                    <span class="glyphicon glyphicon-star"></span>
-                    <span class="glyphicon glyphicon-star"></span>
-                    <span class="glyphicon glyphicon-star-empty"></span>
-                </div-->
-      			<p>Discription</p>
-      			<hr class="line">
-      			<div class="row">
-      				<div class="col-md-6 col-sm-6">
-      					<p class="price">$29,90</p>
-      				</div>
-      				<div class="col-md-6 col-sm-6">
-      					<button class="btn btn-success right" > EDIT ITEM</button>
-      				</div>
-      				
-      			</div>
-    		</span>
-  		</div>
-  		<!-- END PRODUCTS -->
-	</div>
+		<?php
+			}
+			}
+		?>
+		</div>
+  		
 </div><!--container close-->
 	</div><!--tab-pane close-->
       
-      
+  
 <div class="tab-pane fade" id="change">
 <div class="container fom-main">
 <div class="row">
@@ -523,124 +475,8 @@ integrity="sha384-Wrgq82RsEean5tP3NK3zWAemiNEXofJsTwTyHmNb/iL3dP/sZJ4+7sOld1uqYJ
 <!-- upload profile picture -->
 <div class="col-md-12 text-left">
 <div class="uplod-picture">
-<span class="btn btn-default uplod-file">
-    Upload Photo <input type="file" />
-</span>
-
-</div><!--uplod-picture close-->
-</div><!--col-md-12 close-->
-<!-- Button -->
-<div class="form-group col-md-10">
-  <div class="col-md-6">
-    <button type="submit" class="btn btn-warning submit-button" >Save</button>
-    <button type="submit" class="btn btn-warning submit-button" >Cancel</button>
-
-  </div>
-</div>
-</fieldset>
-</form>
-</div><!--row close-->
-</div><!--container close -->          
-</div><!--tab-pane close-->
-<div class="tab-pane fade" id="change">
-<div class="container fom-main">
-<div class="row">
-<div class="col-sm-12">
-<h2 class="register">Edit Your Profile</h2>
-</div><!--col-sm-12 close-->
-</div><!--row close-->
-
-
-
-<br />
-<div class="row">
-
-<form class="form-horizontal main_form text-left" action=" " method="post"  id="contact_form">
-<fieldset>
-
-
-<div class="form-group col-md-12">
-  <label class="col-md-10 control-label">First Name</label>  
-  <div class="col-md-12 inputGroupContainer">
-  <div class="input-group">
-  <input  name="first_name" placeholder="First Name" class="form-control"  type="text">
-    </div>
-  </div>
-</div>
-
-<!-- Text input-->
-
-<div class="form-group col-md-12">
-  <label class="col-md-10 control-label" >Last Name</label> 
-    <div class="col-md-12 inputGroupContainer">
-    <div class="input-group">
-  <input name="last_name" placeholder="Last Name" class="form-control"  type="text">
-    </div>
-  </div>
-</div>
-
-<!-- Text input-->
-       <div class="form-group col-md-12">
-  <label class="col-md-10 control-label">E-Mail</label>  
-    <div class="col-md-12 inputGroupContainer">
-    <div class="input-group">
-  <input name="email" placeholder="E-Mail Address" class="form-control"  type="text">
-    </div>
-  </div>
-</div>
-
-
-<!-- Text input-->
-       
-<div class="form-group col-md-12">
-  <label class="col-md-10 control-label">Phone #</label>  
-    <div class="col-md-12 inputGroupContainer">
-    <div class="input-group">
-  <input name="phone" placeholder="(845)555-1212" class="form-control" type="text">
-    </div>
-  </div>
-</div>
-
-<!-- Text input-->
-      
- <div class="form-group col-md-12">
-  <label class="col-md-10 control-label">Address</label>
-    <div class="col-md-12 inputGroupContainer">
-    <div class="input-group">
-            <textarea class="form-control" name="comment" placeholder="Project Description"></textarea>
-  </div>
-  </div>
-</div>
-
-
-<div class="form-group col-md-12">
-  <label class="col-md-10 control-label">Choose Password</label>  
-  <div class="col-md-12 inputGroupContainer">
-  <div class="input-group">
-  <input  name="first_name" placeholder="Choose Password" class="form-control"  type="password">
-    </div>
-  </div>
-</div>
-
-
-
-<div class="form-group col-md-12">
-  <label class="col-md-10 control-label">Confirm Password</label>  
-  <div class="col-md-12 inputGroupContainer">
-  <div class="input-group">
-  <input  name="first_name" placeholder="Confiram Password" class="form-control"  type="password">
-    </div>
-  </div>
-</div>
-
-
-
-
-<!-- upload profile picture -->
-<div class="col-md-12 text-left">
-<div class="uplod-picture">
-<span class="btn btn-default uplod-file">
-    Upload Photo <input type="file" />
+<span class="btn btn-default upload-file">
+    <input class="input-group" value = "Upload Photo" type="file" name="user_image" accept="image/*"/>
 </span>
 
 </div><!--uplod-picture close-->
@@ -758,12 +594,6 @@ integrity="sha384-Wrgq82RsEean5tP3NK3zWAemiNEXofJsTwTyHmNb/iL3dP/sZJ4+7sOld1uqYJ
             <div class="form-group">
                 <input id="tokenfield" type="text" class="form-control" placeholder="To" />
             </div>
-            <!--div class="form-group">
-                <input type="text" class="form-control" placeholder="Cc" />
-            </div>
-            <div class="form-group">
-                <input type="text" class="form-control" placeholder="Bcc" />
-            </div-->
             <div class="form-group">
                 <input type="text" class="form-control" placeholder="Subject" />
             </div>
@@ -878,56 +708,7 @@ integrity="sha384-Wrgq82RsEean5tP3NK3zWAemiNEXofJsTwTyHmNb/iL3dP/sZJ4+7sOld1uqYJ
        </div>
       
   </div>
-  <!--div class="tab-pane" id="trash">
-      
-      <div class="container">
-           <div class="content-container clearfix">
-               <div class="col-md-12" style="padding-right:86px;">
-                   <h1 class="content-title">Trash</h1>
-                   
-                   <input type="search" placeholder="Search Mail" class="form-control mail-search" />
-                   
-                   <ul class="mail-list">
-                       <li>
-                           <a href="">
-                               <span class="mail-sender">You Tube</span>
-                               <span class="mail-subject">New subscribers!</span>
-                               <span class="mail-message-preview">You have ten more subscriptions click her...</span>
-                           </a>
-                       </li>
-                       <li>
-                           <a href="">
-                               <span class="mail-sender">You Tube</span>
-                               <span class="mail-subject">New subscribers!</span>
-                               <span class="mail-message-preview">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nihil eveniet ipsum nisi? Eaque odio quae debitis saepe explicabo alias sit tenetur animi...</span>
-                           </a>
-                       </li>
-                       <li>
-                           <a href="">
-                               <span class="mail-sender">You Tube</span>
-                               <span class="mail-subject">New subscribers!</span>
-                               <span class="mail-message-preview">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nihil eveniet ipsum nisi? Eaque odio quae debitis saepe explicabo alias sit tenetur animi...</span>
-                           </a>
-                       </li>
-                       <li>
-                           <a href="">
-                               <span class="mail-sender">You Tube</span>
-                               <span class="mail-subject">New subscribers!</span>
-                               <span class="mail-message-preview">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nihil eveniet ipsum nisi? Eaque odio quae debitis saepe explicabo alias sit tenetur animi...</span>
-                           </a>
-                       </li>
-                       <li>
-                           <a href="">
-                               <span class="mail-sender">You Tube</span>
-                               <span class="mail-subject">New subscribers!</span>
-                               <span class="mail-message-preview">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nihil eveniet ipsum nisi? Eaque odio quae debitis saepe explicabo alias sit tenetur animi...</span>
-                           </a>
-                       </li>
-                   </ul>
-               </div>
-           </div>
-       </div>
-</div--><!--container close -->  
+  
 </div><!--tab-pane close-->
 
 </div><!--tab-content close-->
@@ -946,5 +727,6 @@ integrity="sha384-Wrgq82RsEean5tP3NK3zWAemiNEXofJsTwTyHmNb/iL3dP/sZJ4+7sOld1uqYJ
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
     <!-- Include all compiled plugins (below), or include individual files as needed -->
     <script src="js/bootstrap.min.js"></script>
+		
   </body>
 </html>

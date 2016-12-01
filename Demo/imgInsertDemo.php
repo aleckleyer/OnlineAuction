@@ -83,7 +83,7 @@
 	}
 	?>  
 	<form method="POST" enctype="multipart/form-data" class = "form-horizontal">
-		<table class="table table-bordered table-responsive">
+		<table class="table table-bordered table-responsive" style="border:1">
 			
 			<tr>
 			<td><label class="control-label">Productname.</label></td>
