@@ -279,6 +279,7 @@ foreach($number as &$char){
 	
 	<div class = "row">
 		<h2>Your Listed Products<h2>
+		<button class="btn btn-success right" onclick="location.href='imgInsertDemo.php?user_id=<?php echo $_SESSION['valid_user_id'];?>'" > ADD ITEMS</button>
 		</div>
 		
 	<div class="row">
