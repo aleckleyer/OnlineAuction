@@ -65,7 +65,32 @@
                       '<p class="lead">'.$row["TimeLeft"].'</p>'.
                     '</div>'.
                     '<div class="row productBtn">'.
-                      '<button class="btn btn-default btn-block">$'.$row["Price"].' Bid Now</button>'.
+                      '<button type="button" class="btn btn-default btn-block" data-toggle="modal" data-target="#product'.$row["ProductID"].'">$'.$row["Price"].' Bid Now</button>'.
+                    '</div>'.
+                  '</div>'.
+                  '<div class="modal fade" id="product'.$row["ProductID"].'" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">'.
+                    '<div class="modal-dialog" role="document">'.
+                      '<div class="modal-content">'.
+                        '<div class="modal-header">'.
+                          '<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>'.
+                          '<h4 class="modal-title" id="myModalLabel">Make A Bid</h4>'.
+                        '</div>'.
+                        '<div class="modal-body">'.
+                          '<form class="form-horizontal" action="makeBid.php" method="POST">'.
+                            '<div class="form-group">'.
+                              '<label for="inputEmail3" class="col-sm-2 control-label">Bid: </label>'.
+                              '<div class="col-sm-10">'.
+                                '<input type="email" class="form-control" id="product'.$row["ProductID"].'" placeholder="$'.$row["Price"].'" name="productBidAmount">'.
+                              '</div>'.
+                            '</div>'.
+                            '<div class="form-group">'.
+                              '<div class="col-sm-offset-2 col-sm-10">'.
+                                '<button type="submit" class="btn btn-default">Bid</button>'.
+                              '</div>'.
+                            '</div>'.
+                          '</form>'.
+                        '</div>'.
+                      '</div>'.
                     '</div>'.
                   '</div>';
           }
