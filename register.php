@@ -2,10 +2,10 @@
 
 		require('dbconnect.php');
 		// If the values are posted, insert them into the database.
-		
+
 		$password = $_POST['SignUpPassword'];
 		$cpassword = $_POST['SignUpCPassword'];
-		
+
 		if ($cpassword != $password){
 			echo "<b>ERROR:</b> Passwords do not match</br>";
 			echo "Please follow this link to return to registration: "."<a href=\"http://localhost:8888/PowerliftingHub/register.php\">Registration</a>";
@@ -18,12 +18,15 @@
 			exit;
 		}
 		
+		echo "checkpoint<br>";
+
 		if (isset($_POST['SignUpSubmit'])){
 			$email = $_POST['SignUpEmail'];
 			$password = $_POST['SignUpPassword'];
 			$firstname = $_POST['SignUpFirstName'];
 			$lastname = $_POST['SignUpLastName'];
 			//$DOB = $_POST['DOB'];
+			echo "checkpoint1<br>";
 
 			$sql = "SELECT * FROM `User` WHERE email='$email'";
 				$result = mysql_query($sql) or die(mysql_error());
@@ -31,6 +34,7 @@
 				if ($count > 0){
 					echo "Username already exists!";
 				} 
+			echo "checkpoint2<br>";
 			$query = "INSERT INTO `User` (Email, password, FirstName, LastName) VALUES ('$email', '$password', '$firstname', '$lastname')";
 			$result = mysql_query($query);
 
@@ -40,5 +44,5 @@
 			}
 		}
 
-		header("Location:index.php");
+		#header("Location:index.php");
 ?>
