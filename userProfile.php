@@ -4,18 +4,7 @@
 	$db_handle = new DBController();
 	
 	$SESSION['edit_user_id'] = 1;
-	if(isset($_GET['delete_product_id'])){
-		$stmt_select = $db_handle->runQuery("SELECT Img FROM product WHERE ProductID = '".$_GET['edit_product_id']."' AND SellerID = '".$SESSION['edit_user_id']."'");
-		if(!empty($stmt_select)){
-			foreach($stmt_select as $k=>$v){
-				$del_img = $stmt_select[$k]['Img'];
-			}
-		}
-		unlink("product-img/".$del_img);
-		$stmt_delete = $db_handle->runQuery("DELETE FROM product WHERE ProductID = '".$_GET['edit_product_id']."' AND SellerID = '".$SESSION['edit_user_id']."'");
-		
-		header("Location: userProfile.php");
-	}
+	
 ?>
 <html lang="en">
   <head>
@@ -194,7 +183,7 @@ integrity="sha384-Wrgq82RsEean5tP3NK3zWAemiNEXofJsTwTyHmNb/iL3dP/sZJ4+7sOld1uqYJ
 <div class="container" style="margin-top: 30px;">
 <div class="profile-head">
 <?php
-	$user_array = $db_handle->runQuery("SELECT Email, FIRSTNAME, LASTNAME, COUNTRY FROM user where UserID='".$SESSION['edit_user_id']."'");
+	$user_array = $db_handle->runQuery("SELECT Email, FIRSTNAME, LASTNAME, COUNTRY, PhoneNumber FROM user where UserID='".$SESSION['edit_user_id']."'");
 	if(!empty($user_array)){
 		foreach($user_array as $key=>$value){
 ?>
@@ -213,8 +202,32 @@ echo "</h6>";?>
 <ul>
 <!--li><span class="glyphicon glyphicon-briefcase"></span> 5 years</li-->
 <li><span class="glyphicon glyphicon-map-marker"></span><?php echo $user_array[$key]["COUNTRY"];?></li>
-<li><span class="glyphicon glyphicon-home"></span> 555 street Address,toedo 43606 U.S.A.</li>
-<li><span class="glyphicon glyphicon-phone"></span> <a href="#" title="call">(+021) 956 789123</a></li>
+<li><span class="glyphicon glyphicon-phone"></span> <a href="#" title="call" style="padding-left: 0px;">
+
+<?php $number = $user_array[$key]["PhoneNumber"];
+
+$number = str_split($number);
+
+$index = 0;
+foreach($number as &$char){
+	if($index == 0){
+		echo "(";
+		echo $char;
+	}else if($index == 3){
+		echo ") ";
+		echo $char;
+	}else if($index == 6){
+		echo " - ";
+		echo $char;
+	}else{
+		echo $char;
+	}
+	$index+=1;
+}
+
+?>
+
+</a></li>
 <li><span class="glyphicon glyphicon-envelope"></span><a href="#" title="mail"><?php echo $user_array[$key]["Email"];?></a></li>
 
 </ul>
@@ -320,8 +333,24 @@ echo "</h6>";?>
       				</div>
       				<div class="col-md-6 col-sm-6" style="text-allign: left; padding: 0px;">
 						<button class="btn btn-success right" onclick="location.href=' editProductDemo.php?edit_product_id=<?php echo $product_array[$key]['ProductID']; ?>'" > EDIT</button>
-						<button style=" width:56px;" class="btn btn-success right" onclick="return confirm('Are You Sure?')" >
-						<a href="?delete_product_id=<?php echo $product_array[$key]['ProductID']; ?>">DELE</a></button>
+						<!--button-->
+						
+						<?php
+						if(isset($_GET['delete_product_id'])){
+		$stmt_select = $db_handle->runQuery("SELECT Img FROM product WHERE ProductID = '".$_GET['edit_product_id']."' AND SellerID = '".$SESSION['edit_user_id']."'");
+		if(!empty($stmt_select)){
+			foreach($stmt_select as $k=>$v){
+				$del_img = $stmt_select[$k]['Img'];
+			}
+		}
+		unlink("product-img/".$del_img);
+		$stmt_delete = $db_handle->runQuery("DELETE FROM product WHERE ProductID = '".$_GET['edit_product_id']."' AND SellerID = '".$SESSION['edit_user_id']."'");
+		
+		header("Location: userProfile.php");
+	}
+						?>
+						
+						<a style=" width:56px;" class="btn btn-success right" onclick="return confirm('Are You Sure?')" href="?delete_product_id=<?php echo $product_array[$key]['ProductID']; ?>">DELE</a><!--/button-->
 						
       				</div>
       				
@@ -363,6 +392,8 @@ if(isset($_POST['btn_save_updates'])){
 	$firstname = $_POST['user_fname'];
 	$lastname = $_POST['user_lname'];
 	$email = $_POST['user_mail'];
+	$phonenumber = $_POST['phone_number'];
+	$country = $_POST['country'];
 
 	$imgFile = $_FILES['user_image']['name'];
 	$tmp_dir = $_FILES['user_image']['tmp_name'];
@@ -399,7 +430,7 @@ if(isset($_POST['btn_save_updates'])){
 		}
 		if(!isset($errMSG)){
 			
-		$stmt_array = $db_handle->runQuery("UPDATE user Set Email= '".$email."', FirstName='".$firstname."', LastName='".$lastname."', Image='".$img."' WHERE UserID= '".$userid."'");
+		$stmt_array = $db_handle->runQuery("UPDATE user Set Email= '".$email."', FirstName='".$firstname."', LastName='".$lastname."', COUNTRY='".$country."', Image='".$img."', PhoneNumber='".$phonenumber."' WHERE UserID= '".$userid."'");
 
 ?>
 <script>
@@ -445,7 +476,7 @@ if(isset($_POST['btn_save_updates'])){
   <label class="col-md-10 control-label">E-Mail</label>  
     <div class="col-md-12 inputGroupContainer">
     <div class="input-group">
-  <input name="user_mail" placeholder="E-Mail Address" class="form-control" value="<?php echo $stmt_edit[$key]['Email'];?>" type="text">
+  <input name="user_mail" placeholder="E-Mail Address" class="form-control" value="<?php echo $stmt_edit[$key]['Email']; ?>" type="text">
     </div>
   </div>
 </div>
@@ -457,7 +488,7 @@ if(isset($_POST['btn_save_updates'])){
   <label class="col-md-10 control-label">Phone #</label>  
     <div class="col-md-12 inputGroupContainer">
     <div class="input-group">
-  <input name="phone" placeholder="(123)456-7890" class="form-control" type="text">
+  <input name="phone_number" placeholder="(123)456-7890" class="form-control" value="<?php echo $stmt_edit[$key]['PhoneNumber']; ?>" type="text">
     </div>
   </div>
 </div>
@@ -465,10 +496,10 @@ if(isset($_POST['btn_save_updates'])){
 <!-- Text input-->
       
  <div class="form-group col-md-12">
-  <label class="col-md-10 control-label">Address</label>
+  <label class="col-md-10 control-label">Country</label>
     <div class="col-md-12 inputGroupContainer">
     <div class="input-group">
-            <textarea class="form-control" name="comment" placeholder="Project Description"></textarea>
+            <input class="form-control" name="country" placeholder="Country" value="<?php echo $stmt_edit[$key]['COUNTRY']; ?>" type="text">
   </div>
   </div>
 </div>
@@ -568,9 +599,7 @@ if(isset($_POST['btn_save_updates'])){
            <div class="content-container clearfix">
                <div class="col-md-12">
                    <h1 class="content-title">Inbox</h1>
-                   
-                   <input type="search" placeholder="Search Mail" class="form-control mail-search" />
-                   
+                                   
                    <ul class="mail-list">
 				   <?php
 	$inbox_array = $db_handle->runQuery("SELECT * FROM messages WHERE RecipientID = '".$SESSION['edit_user_id']."' ORDER by Time DESC");
@@ -639,12 +668,12 @@ if(isset($_POST['btn_save_updates'])){
         <h1 class="content-title" >Compose</h1>
         <div class="col-md-12">
             <div class="form-group">
-                <input id="tokenfield" type="text" name="email_to" class="form-control" placeholder="To" />
+                <input id="tokenfield" type="text" name="email_to" class="form-control" placeholder="To" required/>
             </div>
             <div class="form-group">
-                <input name="email_subject" type="text" class="form-control" placeholder="Subject"  />
+                <input name="email_subject" type="text" class="form-control" placeholder="Subject"  required/>
             </div>
-            <textarea class="form-control" name="email_mesage" placeholder="message"></textarea>
+            <textarea class="form-control" name="email_mesage" placeholder="message" required></textarea>
             <div class="btn-send" style="padding-top:12px;">
             <button name="btn_send_message" type="submit" class="btn btn-success btn-lg"><span class="glyphicon glyphicon-send"></span> Send</button>
             </div>
@@ -659,8 +688,6 @@ if(isset($_POST['btn_save_updates'])){
            <div class="content-container clearfix">
                <div class="col-md-12" >
                    <h1 class="content-title">Sent Mail</h1>
-                   
-                   <input type="search" placeholder="Search Mail" class="form-control mail-search" />
                    
                    <ul class="mail-list">
 				   <?php
