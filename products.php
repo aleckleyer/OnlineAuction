@@ -13,7 +13,8 @@
 
   </head>
   <body>
-    <nav class="navbar navbar-default">
+    <div class="background"></div>
+    <nav class="navbar navbar-default otherNavbar">
       <div class="container-fluid">
         <!-- Brand and toggle get grouped for better mobile display -->
         <div class="navbar-header">
@@ -47,7 +48,7 @@
             <h5>Product Name</h5>
           </div>
           <div class="row productImg">
-
+            <img src="http://placehold.it/155x150"/>
           </div>
           <div class="row productTime text-center">
             <p class="lead">0:00</p>
@@ -61,7 +62,7 @@
             <h5>Product Name</h5>
           </div>
           <div class="row productImg">
-
+            <img src="http://placehold.it/155x150"/>
           </div>
           <div class="row productTime text-center">
             <p class="lead">0:00</p>
@@ -75,7 +76,7 @@
             <h5>Product Name</h5>
           </div>
           <div class="row productImg">
-
+            <img src="http://placehold.it/155x150"/>
           </div>
           <div class="row productTime text-center">
             <p class="lead">0:00</p>
@@ -89,7 +90,7 @@
             <h5>Product Name</h5>
           </div>
           <div class="row productImg">
-
+            <img src="http://placehold.it/155x150"/>
           </div>
           <div class="row productTime text-center">
             <p class="lead">0:00</p>
@@ -103,7 +104,7 @@
             <h5>Product Name</h5>
           </div>
           <div class="row productImg">
-
+            <img src="http://placehold.it/155x150"/>
           </div>
           <div class="row productTime text-center">
             <p class="lead">0:00</p>
@@ -117,7 +118,7 @@
             <h5>Product Name</h5>
           </div>
           <div class="row productImg">
-
+            <img src="http://placehold.it/155x150"/>
           </div>
           <div class="row productTime text-center">
             <p class="lead">0:00</p>
@@ -131,7 +132,7 @@
             <h5>Product Name</h5>
           </div>
           <div class="row productImg">
-
+            <img src="http://placehold.it/155x150"/>
           </div>
           <div class="row productTime text-center">
             <p class="lead">0:00</p>
@@ -145,7 +146,7 @@
             <h5>Product Name</h5>
           </div>
           <div class="row productImg">
-
+            <img src="http://placehold.it/155x150"/>
           </div>
           <div class="row productTime text-center">
             <p class="lead">0:00</p>
@@ -159,7 +160,7 @@
             <h5>Product Name</h5>
           </div>
           <div class="row productImg">
-
+            <img src="http://placehold.it/155x150"/>
           </div>
           <div class="row productTime text-center">
             <p class="lead">0:00</p>
@@ -173,7 +174,7 @@
             <h5>Product Name</h5>
           </div>
           <div class="row productImg">
-
+            <img src="http://placehold.it/155x150"/>
           </div>
           <div class="row productTime text-center">
             <p class="lead">0:00</p>
@@ -182,6 +183,15 @@
             <button class="btn btn-default btn-block">$4 Bid Now</button>
           </div>
         </div>
+      </div>
+    </div>
+
+    <div style="margin-top:60px;"></div>
+
+    <div class="navbar navbar-default navbar-fixed-bottom otherNavbar">
+      <div class="container">
+        <p class="navbar-text text-center" id="footerText">© 2016 - OnlineAuction
+        </p>
       </div>
     </div>
 

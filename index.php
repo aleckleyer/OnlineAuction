@@ -119,33 +119,33 @@
               <div class="form-group">
                 <label for="SignUpFirstName" class="col-sm-2 control-label">Name</label>
                 <div class="col-sm-5">
-                  <input type="text" class="form-control" id="SignUpFirstName" placeholder="First">
+                  <input type="text" class="form-control" id="SignUpFirstName" name="SignUpFirstName" placeholder="First">
                 </div>
                 <div class="col-sm-5">
-                  <input type="text" class="form-control" id="SignUpLastName" placeholder="Last">
+                  <input type="text" class="form-control" id="SignUpLastName" name="SignUpLastName" placeholder="Last">
                 </div>
               </div>
               <div class="form-group">
                 <label for="SignUpEmail" class="col-sm-2 control-label">Email</label>
                 <div class="col-sm-10">
-                  <input type="email" class="form-control" id="SignUpEmail" placeholder="Email">
+                  <input type="email" class="form-control" id="SignUpEmail" name="SignUpEmail" placeholder="Email">
                 </div>
               </div>
               <div class="form-group">
                 <label for="SignUpPassword" class="col-sm-2 control-label">Password</label>
                 <div class="col-sm-10">
-                  <input type="password" class="form-control" id="SignUpPassword" placeholder="Password">
+                  <input type="password" class="form-control" id="SignUpPassword" name="SignUpPassword" placeholder="Password">
                 </div>
               </div>
               <div class="form-group">
                 <label for="SignUpCPassword" class="col-sm-2 control-label">Confirm</label>
                 <div class="col-sm-10">
-                  <input type="password" class="form-control" id="SignUpCPassword" placeholder="Confirm Password">
+                  <input type="password" class="form-control" id="SignUpCPassword" name="SignUpCPassword" placeholder="Confirm Password">
                 </div>
               </div>
               <div class="form-group">
                 <div class="col-sm-offset-2 col-sm-10">
-                  <button type="submit" class="btn btn-default" id="SignUpSubmit">Submit</button>
+                  <button type="submit" class="btn btn-default" id="SignUpSubmit" name="SignUpSubmit">Submit</button>
                 </div>
               </div>
             </form>
