@@ -45,7 +45,34 @@
 
     <div class="container" id="AuctionsList">
       <div class="row-fluid">
-        <div class="col-md-2 product">
+        <?php
+        require('dbconnect.php');
+
+        $query="SELECT * FROM `product`";
+    
+        $result = $conn->query($query);
+        
+        if ($result->num_rows > 0){
+          while($row = mysqli_fetch_array($result)){
+            echo '<div class="col-md-2 product">'.
+                    '<div class="row productName text-center">'.
+                      '<h5>'.$row["Name"].'</h5>'.
+                    '</div>'.
+                    '<div class="row productImg">'.
+                      '<img class="img-responsive" src="product-img/'.$row["Img"].'"/>'.
+                    '</div>'.
+                    '<div class="row productTime text-center">'.
+                      '<p class="lead">'.$row["TimeLeft"].'</p>'.
+                    '</div>'.
+                    '<div class="row productBtn">'.
+                      '<button class="btn btn-default btn-block">$'.$row["Price"].' Bid Now</button>'.
+                    '</div>'.
+                  '</div>';
+          }
+        }
+
+        ?>
+        <!-- <div class="col-md-2 product">
           <div class="row productName text-center">
             <h5>Product Name</h5>
           </div>
@@ -184,7 +211,7 @@
           <div class="row productBtn">
             <button class="btn btn-default btn-block">$4 Bid Now</button>
           </div>
-        </div>
+        </div> -->
       </div>
     </div>
 
