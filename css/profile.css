@@ -1,7 +1,7 @@
 body { background:#ffffff;}
 
 .menu { display:none;}
-.search-box1 {padding: 20px 0px;z-index: 99999;width: 100%;}
+/*.search-box1 {padding: 20px 0px;z-index: 99999;width: 100%;}
 .search {padding: 30px 0px;float: left;width: 100%;}
 .serach-footer {left: 20px;position: absolute;top: 10px;}
 .search-wrap {display: block;width: 100%;height: 40px;padding: 6px 12px;font-size: 14px;line-height: 1.42857143;color: #555;background-color: #fff;
@@ -20,7 +20,7 @@ width: 100%;border-radius: 0px 20px 20px 0px;color: #fff !important;height: 40px
 .modal-title {color: #ffffff !important;}
 
 
-
+*/
 /*nav css close*/
 
 
@@ -148,10 +148,10 @@ body {
     font-size:10px;
 }
 input[type="text"].form-control,
-input[type="search"].form-control{
+/*input[type="search"].form-control{
     border:none;
     border-bottom:1px dotted #CFCFCF;
-}
+}*/
 textarea {
     border:1px dotted #CFCFCF!important;
     height:130px!important;
@@ -209,9 +209,6 @@ ul.mail-list li span.mail-message-preview{
     display:block;
     color:#A8A8A8;
 }
-.mail-search{
-    border-bottom-color:#7FBCC9!important; 
-}
 
 /*----popup register----*/
 /* The Modal (background) */
@@ -229,30 +226,47 @@ ul.mail-list li span.mail-message-preview{
     background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
 }
 
-/* Modal Content */
-.modal-content {
-    background-color: #fefefe;
-	background-image: url("marathon.jpg");
-    margin: auto;
-    padding: 20px;
-    border: 1px solid #888;
-    width: 80%;
-}
-
-.modal-content h1, .modal-content p{
-	color: white;
-}
-
-/* The Close Button */
-.close {
-    color: grey;
+/* Search button */
+#search {
     float: right;
-    font-size: 28px;
-    font-weight: bold;
+    margin-top: 9px;
+    width: 250px;
 }
 
-.close:hover,.close:focus {
-    color: red;
-    text-decoration: none;
-    cursor: pointer;
+.search {
+    padding: 5px 0;
+    width: 230px;
+    height: 30px;
+    position: relative;
+    left: 10px;
+    float: left;
+    line-height: 22px;
 }
+
+    .search input {
+        position: absolute;
+        width: 0px;
+        float: Left;
+        margin-left: 210px;
+        -webkit-transition: all 0.7s ease-in-out;
+        -moz-transition: all 0.7s ease-in-out;
+        -o-transition: all 0.7s ease-in-out;
+        transition: all 0.7s ease-in-out;
+        height: 30px;
+        line-height: 18px;
+        padding: 0 2px 0 2px;
+        border-radius:1px;
+    }
+
+        .search:hover input, .search input:focus {
+            width: 200px;
+            margin-left: 0px;
+        }
+
+/*.btn {
+    height: 30px;
+    position: absolute;
+    right: 0;
+    top: 5px;
+    border-radius:1px;
+}*/

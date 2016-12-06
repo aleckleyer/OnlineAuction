@@ -16,50 +16,6 @@
 	<link rel="stylesheet" href="css/main.css">
 	<link rel="stylesheet" href="css/profile.css">
 	
-	<!--script type="text/javascript">
-	!function(a,b){function g(b,c){this.$element=a(b),this.settings=a.extend({},f,c),this.init()}var e="floatlabel",f={slideInput:!0,labelStartTop:"20px",labelEndTop:"10px",paddingOffset:"10px",transitionDuration:.3,transitionEasing:"ease-in-out",labelClass:"",typeMatches:/text|password|email|number|search|url/};g.prototype={init:function(){var a=this,c=this.settings,d=c.transitionDuration,e=c.transitionEasing,f=this.$element,g={"-webkit-transition":"all "+d+"s "+e,"-moz-transition":"all "+d+"s "+e,"-o-transition":"all "+d+"s "+e,"-ms-transition":"all "+d+"s "+e,transition:"all "+d+"s "+e};if("INPUT"===f.prop("tagName").toUpperCase()&&c.typeMatches.test(f.attr("type"))){var h=f.attr("id");h||(h=Math.floor(100*Math.random())+1,f.attr("id",h));var i=f.attr("placeholder"),j=f.data("label"),k=f.data("class");k||(k=""),i&&""!==i||(i="You forgot to add placeholder attribute!"),j&&""!==j||(j=i),this.inputPaddingTop=parseFloat(f.css("padding-top"))+parseFloat(c.paddingOffset),f.wrap('<div class="floatlabel-wrapper" style="position:relative"></div>'),f.before('<label for="'+h+'" class="label-floatlabel '+c.labelClass+" "+k+'">'+j+"</label>"),this.$label=f.prev("label"),this.$label.css({position:"absolute",top:c.labelStartTop,left:f.css("padding-left"),display:"none","-moz-opacity":"0","-khtml-opacity":"0","-webkit-opacity":"0",opacity:"0"}),c.slideInput||f.css({"padding-top":this.inputPaddingTop}),f.on("keyup blur change",function(b){a.checkValue(b)}),b.setTimeout(function(){a.$label.css(g),a.$element.css(g)},100),this.checkValue()}},checkValue:function(a){if(a){var b=a.keyCode||a.which;if(9===b)return}var c=this.$element,d=c.data("flout");""!==c.val()&&c.data("flout","1"),""===c.val()&&c.data("flout","0"),"1"===c.data("flout")&&"1"!==d&&this.showLabel(),"0"===c.data("flout")&&"0"!==d&&this.hideLabel()},showLabel:function(){var a=this;a.$label.css({display:"block"}),b.setTimeout(function(){a.$label.css({top:a.settings.labelEndTop,"-moz-opacity":"1","-khtml-opacity":"1","-webkit-opacity":"1",opacity:"1"}),a.settings.slideInput&&a.$element.css({"padding-top":a.inputPaddingTop}),a.$element.addClass("active-floatlabel")},50)},hideLabel:function(){var a=this;a.$label.css({top:a.settings.labelStartTop,"-moz-opacity":"0","-khtml-opacity":"0","-webkit-opacity":"0",opacity:"0"}),a.settings.slideInput&&a.$element.css({"padding-top":parseFloat(a.inputPaddingTop)-parseFloat(this.settings.paddingOffset)}),a.$element.removeClass("active-floatlabel"),b.setTimeout(function(){a.$label.css({display:"none"})},1e3*a.settings.transitionDuration)}},a.fn[e]=function(b){return this.each(function(){a.data(this,"plugin_"+e)||a.data(this,"plugin_"+e,new g(this,b))})}}(jQuery,window,document);
-
-
-$(document).ready(function(){
-    $('.form-control').floatlabel({
-        labelClass: 'float-label',
-        labelEndTop: 5
-    });
-});
-
-	$(document).ready(function(e) {
-    
-
-$('.form').find('input, textarea').on('keyup blur focus', function (e) {
-  
-  var $this = $(this),
-      label = $this.prev('label');
-
-      if (e.type === 'keyup') {
-    		if ($this.val() === '') {
-          label.removeClass('active highlight');
-        } else {
-          label.addClass('active highlight');
-        }
-    } else if (e.type === 'blur') {
-    	if( $this.val() === '' ) {
-    		label.removeClass('active highlight'); 
-			} else {
-		    label.removeClass('highlight');   
-			}   
-    } else if (e.type === 'focus') {
-      
-      if( $this.val() === '' ) {
-    		label.removeClass('highlight'); 
-			} 
-      else if( $this.val() !== '' ) {
-		    label.addClass('highlight');
-			}
-    }
-
-});
-
-	</script-->
 	
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -89,80 +45,92 @@ integrity="sha384-Wrgq82RsEean5tP3NK3zWAemiNEXofJsTwTyHmNb/iL3dP/sZJ4+7sOld1uqYJ
         </div>
         <!-- Collect the nav links, forms, and other content for toggling -->
 		
-          <ul class="nav navbar-nav navbar-right">
+        <ul class="nav navbar-nav navbar-right">
 			<li>
-			<?php
-			$user_array = $db_handle->runQuery("SELECT FirstName FROM user where UserID='".$_SESSION['valid_user_id']."'");
-			if(!empty($user_array)){
-				foreach($user_array as $key=>$value){
-			?>
-				<?php 
-        print_r($user_array);
-        print_r($_SESSION);
-				echo "<p style='color:white; padding-top: 16px;'>";
-				echo "Welcome back, ".$user_array[$key]["FirstName"]."!";
-				echo "</p>";
-				?> 
-			<?php }} ?>	
-			</li>
-      <li>
-        <button type="button" class="btn btn-default navBtn" data-toggle="modal" data-target="#logOut" id="logOutBtn">
-          Log Out
-        </button>
+				<?php
+				$user_array = $db_handle->runQuery("SELECT FirstName FROM user where UserID='".$_SESSION['valid_user_id']."'");
+				if(!empty($user_array)){
+					foreach($user_array as $key=>$value){
+					echo "<p style='color:white; padding-top: 16px;'>";
+					echo "Welcome back, ".$user_array[$key]["FirstName"]."!";
+					echo "</p>";
+				}} 
+				?>	
 			</li>
 			<li>
-				<a href="#" data-toggle="modal" data-target="#myModal"><span type=" glyphicon glyphicon-search"></span>Search</a> 
+				<form class="form-horizontal" action="logout.php" method="POST">
+					<div class="form-group">
+						<div class="col-sm-offset-2 col-sm-10">
+                  <button type="submit" class="btn btn-default navBtn">Log Out</button>
+                </div>
+              </div>
+            </form>
 			</li>
-          </ul>
+			<li>
+				<div class="search">
+				<input type="text" class="form-control input-sm" placeholder="Search"/>
+				<button type="submit" class="btn btn-default btn-primary navBtn" id="searchBtn"><span type=" glyphicon glyphicon-search"></span>Search</button>
+				</div>
+			</li>
+        </ul>
         </div><!-- /.navbar-collapse -->
       </div><!-- /.container-fluid -->
     </nav>
-<!--search box-->
-<div class="container">
-  <!-- Modal -->
-  <div class="modal fade" id="myModal" role="dialog">
-    <div class="modal-dialog">
-    
-      <!-- Modal content-->
-      <div class="modal-content" style="background-color:rgb(43, 45, 48);">
-        <div class="modal-header">
-          <button type="button" class="close" data-dismiss="modal">X</button>
-          <h4 class="modal-title">Search Section</h4>
-        </div>
-        <div class="modal-body">
-
-
-
-
-
-         <section class="search-box1" id="panel">
-  <div class="container">
-    <form class="form-inline" role="form">
-      <div class="col-sm-8 col-xs-8 form-group top_search" style="padding-right:0px;">
-        <div class="row">
-          <label class="sr-only" for="search">Search here...</label>
-          <span class="serach-footer"><img src="images/srch.png" /></span>
-          <input type="text" class="form-control search-wrap" id="search" placeholder="Search here..." style="height:40px;">
+	<!-- LogOut Modal -->
+	<!--
+    <div class="modal fade" id="logOut" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h4 class="modal-title" id="myModalLabel">Are you sure?</h4>
+          </div>
+          <div class="modal-footer">
+            <form class="form-horizontal" action="logout.php" method="POST">
+              <div class="form-group">
+                <div class="col-sm-offset-2 col-sm-10">
+                  <button type="submit" class="btn btn-default">Log Out</button>
+                </div>
+              </div>
+            </form>
+          </div>
         </div>
       </div>
-      <div class="row">
-        <div class="col-sm-4 col-xs-4 form-group top_search" style="padding-left:0px;">
-          <button type="submit" class="btn btn-default search-btn">SEARCH</button>
-        </div>
-      </div>
-    </form>
-  </div>
-</section>
-
-
-
-        </div>
-        
-        </div>
-      </div>
-      
+    </div>-->
+  <!--Search Modal -->
+	<!--<div class="modal fade" id="searchModal" tabindex="-1" role="dialog" aria-labelledby="searchModalLabel">
+		<div class="modal-dialog" role="document">
+			<!-- Modal content>
+			<div class="modal-content" style="background-color:rgb(43, 45, 48);">
+				<div class="modal-header">
+					<input type="text" class="form-control input-sm" place
+					<button type="button" class="close" data-dismiss="modal">X</button>
+					<h4 class="modal-title">Search Section</h4>
+				</div>
+				<div class="modal-body"-->
+	<!--
+			 <section class="search-box1" id="panel">
+	  <div class="container">
+		<form class="form-inline" role="form">
+		  <div class="col-sm-8 col-xs-8 form-group top_search" style="padding-right:0px;">
+			<div class="row">
+			  <label class="sr-only" for="search">Search here...</label>
+			  <span class="serach-footer"><img src="images/srch.png" /></span>
+			  <input type="text" class="form-control search-wrap" id="search" placeholder="Search here..." style="height:40px;">
+			</div>
+		  </div>
+		  <div class="row">
+			<div class="col-sm-4 col-xs-4 form-group top_search" style="padding-left:0px;">
+			  <button type="submit" class="btn btn-default search-btn">SEARCH</button>
+			</div>
+		  </div>
+		</form>
+	  </div>
+	</section>
+	-->
+				</div>
+			</div>
+		</div>
     </div>
-  </div>
 <br>
 <br>
 <br>
@@ -337,20 +305,20 @@ foreach($number as &$char){
 						
 						<?php
 						if(isset($_GET['delete_product_id'])){
-		$stmt_select = $db_handle->runQuery("SELECT Img FROM product WHERE ProductID = '".$_GET['edit_product_id']."' AND SellerID = '".$_SESSION['edit_user_id']."'");
+		$stmt_select = $db_handle->runQuery("SELECT Img FROM product WHERE ProductID = '".$_GET['delete_product_id']."' AND SellerID = '".$_SESSION['valid_user_id']."'");
 		if(!empty($stmt_select)){
 			foreach($stmt_select as $k=>$v){
 				$del_img = $stmt_select[$k]['Img'];
 			}
 		}
 		unlink("product-img/".$del_img);
-		$stmt_delete = $db_handle->runQuery("DELETE FROM product WHERE ProductID = '".$_GET['edit_product_id']."' AND SellerID = '".$_SESSION['edit_user_id']."'");
+		$stmt_delete = $db_handle->runQuery("DELETE FROM product WHERE ProductID = '".$_GET['delete_product_id']."' AND SellerID = '".$_SESSION['valid_user_id']."'");
 		
 		header("Location: userProfile.php");
 	}
 						?>
 						
-						<a style=" width:56px;" class="btn btn-success right" onclick="return confirm('Are You Sure?')" href="?delete_product_id=<?php echo $product_array[$key]['ProductID']; ?>">DELE</a><!--/button-->
+						<a style=" width:56px;" class="btn btn-success right" href="?delete_product_id=<?php echo $product_array[$key]['ProductID']; ?>" onclick="return confirm('Are You Sure?')" >DELE</a><!--/button-->
 						
       				</div>
       				
@@ -731,25 +699,7 @@ if(isset($_POST['btn_save_updates'])){
       </div>
     </div-->
 
-    <!-- LogOut Modal -->
-    <div class="modal fade" id="logOut" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-      <div class="modal-dialog" role="document">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h4 class="modal-title" id="myModalLabel">Are you sure?</h4>
-          </div>
-          <div class="modal-footer">
-            <form class="form-horizontal" action="logout.php" method="POST">
-              <div class="form-group">
-                <div class="col-sm-offset-2 col-sm-10">
-                  <button type="submit" class="btn btn-default">Log Out</button>
-                </div>
-              </div>
-            </form>
-          </div>
-        </div>
-      </div>
-    </div>
+    
 
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
