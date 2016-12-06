@@ -1,5 +1,5 @@
 <?php	
-
+		session_start();
 		require('dbconnect.php');
 		// If the values are posted, insert them into the database.
 
@@ -18,31 +18,27 @@
 			exit;
 		}
 		
-		echo "checkpoint<br>";
-
 		if (isset($_POST['SignUpSubmit'])){
 			$email = $_POST['SignUpEmail'];
 			$password = $_POST['SignUpPassword'];
 			$firstname = $_POST['SignUpFirstName'];
 			$lastname = $_POST['SignUpLastName'];
-			//$DOB = $_POST['DOB'];
-			echo "checkpoint1<br>";
+			$Country = $_POST['Country'];
+			
+			if ($count > 0){
+				echo "Username already exists!";
+			} 
 
-			$sql = "SELECT * FROM `User` WHERE email='$email'";
-				$result = mysql_query($sql) or die(mysql_error());
-				$count = mysql_num_rows($result);
-				if ($count > 0){
-					echo "Username already exists!";
-				} 
-			echo "checkpoint2<br>";
-			$query = "INSERT INTO `User` (Email, password, FirstName, LastName) VALUES ('$email', '$password', '$firstname', '$lastname')";
+			$query = "INSERT INTO User(Email, password, FirstName, LastName, Country) VALUES('$email', '$password', '$firstname', '$lastname', '$Country')";
+
 			$result = mysql_query($query);
 
 			if($result){
-				$msg = "Thanks for joining!";
-				echo $msg;
+				$_SESSION['SignUpCodeValue'] = 1;
+				header("Location:products.php");
+			} else{
+				$_SESSION['SignUpCodeValue'] = 2;
+				header("Location:index.php");
 			}
 		}
-
-		#header("Location:index.php");
 ?>
