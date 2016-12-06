@@ -1,21 +1,23 @@
 <?php
-$servername = "localhost";
-$username = "cl19-main-27r";
-$password = "swcTVnk-H";
-$database = "cl19-main-27r";
 
-// Create connection
-$conn = new mysqli($servername, $username, $password);
-
-// Check connection
-if ($conn->connect_error) {
-    die("Connection failed: " . $conn->connect_error);
-}
-
-// make the current db
-$db_selected = mysqli_select_db($conn, $database);
-if (!$db_selected) {
-    die ('Can\'t use that database : ' . mysql_error());
-}
+ // this will avoid mysql_connect() deprecation error.
+ error_reporting( ~E_DEPRECATED & ~E_NOTICE );
+ // but I strongly suggest you to use PDO or MySQLi.
+ 
+ define('DBHOST', 'localhost');
+ define('DBUSER', 'cl19-main-27r');
+ define('DBPASS', 'swcTVnk-H');
+ define('DBNAME', 'cl19-main-27r');
+ 
+ $conn = mysql_connect(DBHOST,DBUSER,DBPASS);
+ $dbcon = mysql_select_db(DBNAME);
+ 
+ if ( !$conn ) {
+  die("Connection failed : " . mysql_error());
+ }
+ 
+ if ( !$dbcon ) {
+  die("Database Connection failed : " . mysql_error());
+ }
 
 ?>

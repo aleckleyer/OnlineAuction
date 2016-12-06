@@ -1,3 +1,4 @@
+<?php session_start() ?>
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -29,6 +30,13 @@
 
         <!-- Collect the nav links, forms, and other content for toggling -->
           <ul class="nav navbar-nav navbar-right">
+            <?php if($_SESSION['valid_user_id']){ ?>
+            <li>
+              <button type="button" class="btn btn-default navBtn" data-toggle="modal" data-target="#logOut" id="logOutBtn">
+                Log Out
+              </button>
+            </li>
+            <?php } else { ?>
             <li>
               <button type="button" class="btn btn-default navBtn" data-toggle="modal" data-target="#signIn" id="signInBtn">
                 Sign In
@@ -38,7 +46,15 @@
               <button type="button" class="btn btn-default navBtn" data-toggle="modal" data-target="#signUp" id="signUpBtn">
                 Sign Up
               </button>
+              
+              <?php if($_SESSION['SignUpCodeValue'] == 2){ ?>
+              <div class="alert alert-danger" role="alert">
+                <strong>Couldn't Register.. You beat</strong>
+              </div>
+              <?php } ?>
+            
             </li>
+            <?php } ?>
           </ul>
         </div><!-- /.navbar-collapse -->
       </div><!-- /.container-fluid -->
@@ -67,6 +83,24 @@
     </div>
 
     <!-- Modals -->
+    <div class="modal fade" id="logOut" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h4 class="modal-title" id="myModalLabel">Are you sure?</h4>
+          </div>
+          <div class="modal-footer">
+            <form class="form-horizontal" action="logout.php" method="POST">
+              <div class="form-group">
+                <div class="col-sm-offset-2 col-sm-10">
+                  <button type="submit" class="btn btn-default">Log Out</button>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
     <div class="modal fade" id="signIn" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
       <div class="modal-dialog" role="document">
         <div class="modal-content">
@@ -79,13 +113,13 @@
               <div class="form-group">
                 <label for="inputEmail3" class="col-sm-2 control-label">Email</label>
                 <div class="col-sm-10">
-                  <input type="email" class="form-control" id="inputEmail3" placeholder="Email">
+                  <input type="email" class="form-control" id="inputEmail3" placeholder="Email" name="logInEmail">
                 </div>
               </div>
               <div class="form-group">
                 <label for="inputPassword3" class="col-sm-2 control-label">Password</label>
                 <div class="col-sm-10">
-                  <input type="password" class="form-control" id="inputPassword3" placeholder="Password">
+                  <input type="password" class="form-control" id="inputPassword3" placeholder="Password" name="logInPassword">
                 </div>
               </div>
               <div class="form-group">
@@ -132,14 +166,17 @@
                 </div>
               </div>
               <div class="form-group">
-                <label for="SignUpPassword" class="col-sm-2 control-label">Password</label>
+                <label for="SignUpCountry" class="col-sm-2 control-label">Country</label>
                 <div class="col-sm-10">
-                  <input type="password" class="form-control" id="SignUpPassword" name="SignUpPassword" placeholder="Password">
+                  <input type="text" class="form-control" id="SignUpCountry" name="SignUpCountry" placeholder="Country">
                 </div>
               </div>
               <div class="form-group">
-                <label for="SignUpCPassword" class="col-sm-2 control-label">Confirm</label>
-                <div class="col-sm-10">
+                <label for="SignUpPassword" class="col-sm-2 control-label">Password</label>
+                <div class="col-sm-5">
+                  <input type="password" class="form-control" id="SignUpPassword" name="SignUpPassword" placeholder="Password">
+                </div>
+                <div class="col-sm-5">
                   <input type="password" class="form-control" id="SignUpCPassword" name="SignUpCPassword" placeholder="Confirm Password">
                 </div>
               </div>
