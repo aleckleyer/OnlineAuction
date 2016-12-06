@@ -76,11 +76,11 @@
                           '<h4 class="modal-title" id="myModalLabel">Make A Bid</h4>'.
                         '</div>'.
                         '<div class="modal-body">'.
-                          '<form class="form-horizontal" action="makeBid.php" method="POST">'.
+                          '<form class="form-horizontal" action="makeBid.php?productID='.$row["ProductID"].'" method="POST">'.
                             '<div class="form-group">'.
                               '<label for="inputEmail3" class="col-sm-2 control-label">Bid: </label>'.
                               '<div class="col-sm-10">'.
-                                '<input type="email" class="form-control" id="product'.$row["ProductID"].'" placeholder="$'.$row["Price"].'" name="productBidAmount">'.
+                                '<input type="text" class="form-control" id="product'.$row["ProductID"].'" placeholder="$'.$row["Price"].'" name="productBidAmount">'.
                               '</div>'.
                             '</div>'.
                             '<div class="form-group">'.
