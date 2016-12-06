@@ -3,8 +3,6 @@
 	require_once("config/dbcontroller.php");
 	$db_handle = new DBController();
 	
-	$SESSION['edit_user_id'] = 1;
-	
 ?>
 <html lang="en">
   <head>
@@ -94,21 +92,23 @@ integrity="sha384-Wrgq82RsEean5tP3NK3zWAemiNEXofJsTwTyHmNb/iL3dP/sZJ4+7sOld1uqYJ
           <ul class="nav navbar-nav navbar-right">
 			<li>
 			<?php
-			$user_array = $db_handle->runQuery("SELECT FIRSTNAME FROM user where UserID = '".$SESSION['edit_user_id']."'");
+			$user_array = $db_handle->runQuery("SELECT FirstName FROM user where UserID='".$_SESSION['valid_user_id']."'");
 			if(!empty($user_array)){
 				foreach($user_array as $key=>$value){
 			?>
 				<?php 
+        print_r($user_array);
+        print_r($_SESSION);
 				echo "<p style='color:white; padding-top: 16px;'>";
-				echo "Welcome back, ".$user_array[$key]["FIRSTNAME"]."!";
+				echo "Welcome back, ".$user_array[$key]["FirstName"]."!";
 				echo "</p>";
 				?> 
 			<?php }} ?>	
 			</li>
-            <li>
-              <button type="button" class="btn btn-default navBtn" data-toggle="modal" data-target="#logOut" id="logOutBtn">
-                Log Out
-              </button>
+      <li>
+        <button type="button" class="btn btn-default navBtn" data-toggle="modal" data-target="#logOut" id="logOutBtn">
+          Log Out
+        </button>
 			</li>
 			<li>
 				<a href="#" data-toggle="modal" data-target="#myModal"><span type=" glyphicon glyphicon-search"></span>Search</a> 
@@ -183,7 +183,7 @@ integrity="sha384-Wrgq82RsEean5tP3NK3zWAemiNEXofJsTwTyHmNb/iL3dP/sZJ4+7sOld1uqYJ
 <div class="container" style="margin-top: 30px;">
 <div class="profile-head">
 <?php
-	$user_array = $db_handle->runQuery("SELECT Email, FIRSTNAME, LASTNAME, COUNTRY, PhoneNumber FROM user where UserID='".$SESSION['edit_user_id']."'");
+	$user_array = $db_handle->runQuery("SELECT Email, FirstName, LastName, COUNTRY, PhoneNumber FROM user where UserID='".$_SESSION['valid_user_id']."'");
 	if(!empty($user_array)){
 		foreach($user_array as $key=>$value){
 ?>
@@ -191,13 +191,13 @@ integrity="sha384-Wrgq82RsEean5tP3NK3zWAemiNEXofJsTwTyHmNb/iL3dP/sZJ4+7sOld1uqYJ
 <img src="img/smileface.jpg" class="img-responsive" />
 <?php
 echo "<h6>";
-echo $user_array[$key]["FIRSTNAME"]." ".$user_array[$key]["LASTNAME"]; 
+echo $user_array[$key]["FirstName"]." ".$user_array[$key]["LastName"]; 
 echo "</h6>";?>
 </div><!--col-md-4 col-sm-4 col-xs-12 close-->
 
 
 <div class="col-md-5 col-sm-5 col-xs-12">
-<h5><?php echo $user_array[$key]["FIRSTNAME"]." ".$user_array[$key]["LASTNAME"]; ?></h5>
+<h5><?php echo $user_array[$key]["FirstName"]." ".$user_array[$key]["LastName"]; ?></h5>
 <!--p>Web Designer / Develpor </p-->
 <ul>
 <!--li><span class="glyphicon glyphicon-briefcase"></span> 5 years</li-->
@@ -271,7 +271,7 @@ foreach($number as &$char){
     	<!-- BEGIN PRODUCTS -->
   		<div class="col-md-3 col-sm-6">
 			<?php
-			$product_array = $db_handle->runQuery("SELECT * FROM product WHERE BuyerID = '".$SESSION['edit_user_id']."' ORDER by ProductID ASC");
+			$product_array = $db_handle->runQuery("SELECT * FROM product WHERE BuyerID = '".$_SESSION['valid_user_id']."' ORDER by ProductID ASC");
 			if(!empty($product_array)){
 				foreach($product_array as $key=>$value){
 			
@@ -337,14 +337,14 @@ foreach($number as &$char){
 						
 						<?php
 						if(isset($_GET['delete_product_id'])){
-		$stmt_select = $db_handle->runQuery("SELECT Img FROM product WHERE ProductID = '".$_GET['edit_product_id']."' AND SellerID = '".$SESSION['edit_user_id']."'");
+		$stmt_select = $db_handle->runQuery("SELECT Img FROM product WHERE ProductID = '".$_GET['edit_product_id']."' AND SellerID = '".$_SESSION['edit_user_id']."'");
 		if(!empty($stmt_select)){
 			foreach($stmt_select as $k=>$v){
 				$del_img = $stmt_select[$k]['Img'];
 			}
 		}
 		unlink("product-img/".$del_img);
-		$stmt_delete = $db_handle->runQuery("DELETE FROM product WHERE ProductID = '".$_GET['edit_product_id']."' AND SellerID = '".$SESSION['edit_user_id']."'");
+		$stmt_delete = $db_handle->runQuery("DELETE FROM product WHERE ProductID = '".$_GET['edit_product_id']."' AND SellerID = '".$_SESSION['edit_user_id']."'");
 		
 		header("Location: userProfile.php");
 	}
@@ -383,8 +383,8 @@ foreach($number as &$char){
 </div><!--col-sm-12 close-->
 </div><!--row close-->
 <?php
-if(isset($SESSION['edit_user_id'])){
-	$userid = $SESSION['edit_user_id'];
+if(isset($_SESSION['valid_user_id'])){
+	$userid = $_SESSION['valid_user_id'];
 	$stmt_edit = $db_handle->runQuery("SELECT * FROM user where UserID= '".$userid."'");
 }
 
@@ -602,7 +602,7 @@ if(isset($_POST['btn_save_updates'])){
                                    
                    <ul class="mail-list">
 				   <?php
-	$inbox_array = $db_handle->runQuery("SELECT * FROM messages WHERE RecipientID = '".$SESSION['edit_user_id']."' ORDER by Time DESC");
+	$inbox_array = $db_handle->runQuery("SELECT * FROM messages WHERE RecipientID = '".$_SESSION['valid_user_id']."' ORDER by Time DESC");
 	if(!empty($inbox_array)){
 		
 		foreach($inbox_array as $k=>$v){
@@ -654,7 +654,7 @@ if(isset($_POST['btn_save_updates'])){
 		$sbj = $_POST['email_subject'];
 		$message = $_POST['email_mesage'];
 					
-		$sending_message = $db_handle->runQuery("INSERT INTO messages(RecipientID, SenderID, Text, Subject, Time) VALUES ('".$reid."','".$SESSION['edit_user_id']."','".$message."','".$sbj."','".$date."') ");
+		$sending_message = $db_handle->runQuery("INSERT INTO messages(RecipientID, SenderID, Text, Subject, Time) VALUES ('".$reid."','".$_SESSION['valid_user_id']."','".$message."','".$sbj."','".$date."') ");
 		?>
 			<script>
 			alert('The message is sent!');
@@ -691,7 +691,7 @@ if(isset($_POST['btn_save_updates'])){
                    
                    <ul class="mail-list">
 				   <?php
-	$sent_array = $db_handle->runQuery("SELECT * FROM messages WHERE SenderID = '".$SESSION['edit_user_id']."' ORDER by Time DESC");
+	$sent_array = $db_handle->runQuery("SELECT * FROM messages WHERE SenderID = '".$_SESSION['valid_user_id']."' ORDER by Time DESC");
 	if(!empty($sent_array)){
 		
 		foreach($sent_array as $k=>$v){
@@ -730,6 +730,26 @@ if(isset($_POST['btn_save_updates'])){
         </p>
       </div>
     </div-->
+
+    <!-- LogOut Modal -->
+    <div class="modal fade" id="logOut" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h4 class="modal-title" id="myModalLabel">Are you sure?</h4>
+          </div>
+          <div class="modal-footer">
+            <form class="form-horizontal" action="logout.php" method="POST">
+              <div class="form-group">
+                <div class="col-sm-offset-2 col-sm-10">
+                  <button type="submit" class="btn btn-default">Log Out</button>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
 
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
