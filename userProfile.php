@@ -68,10 +68,12 @@ integrity="sha384-Wrgq82RsEean5tP3NK3zWAemiNEXofJsTwTyHmNb/iL3dP/sZJ4+7sOld1uqYJ
                     </form>
     			</li>
     			<li>
+					<form action="search.php" method="POST">
     				<div class="search">
-    				    <input type="text" class="form-control input-sm" placeholder="Search"/>
-    				    <button type="submit" class="btn btn-default btn-primary navBtn" id="searchBtn"><span type=" glyphicon glyphicon-search"></span>Search</button>
+    				    <input type="text" class="form-control input-sm" placeholder="Search" name="searchInput">
+    				    <button type="submit" class="btn btn-default btn-primary navBtn" id="searchBtn" value="Search"><span type=" glyphicon glyphicon-search"></span>Search</button>
     				</div>
+					</form>
     			</li>
             </ul>
         </div><!-- /.navbar-collapse -->
