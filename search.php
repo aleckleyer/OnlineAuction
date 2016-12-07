@@ -19,6 +19,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST"){
 			if(strpos(strtolower($row["Name"]), $searchInput) !== False || strpos(strtolower($row["Description"]), $searchInput) !== False){
 				array_push($temp, $row["ProductID"]);
 			}
+			
     	}
     	$_SESSION["searchedProducts"] = $temp;
     }
