@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Dec 06, 2016 at 05:20 PM
+-- Generation Time: Dec 07, 2016 at 02:49 AM
 -- Server version: 10.1.16-MariaDB
 -- PHP Version: 5.6.24
 
@@ -72,8 +72,10 @@ CREATE TABLE `product` (
 --
 
 INSERT INTO `product` (`ProductID`, `SellerID`, `BuyerID`, `Price`, `Name`, `Img`, `Type`, `Description`, `TimeLeft`) VALUES
-(6, 1, 0, 15, 'tree', '749031.jpg', '', 'ugly beasts', 0),
-(7, 0, 1, 12, 'Alec', '520621.jpg', '', 'fantastic beasts', 0);
+(7, 0, 2, 14, 'Alec', '520621.jpg', '', 'fantastic beasts', 0),
+(11, 1, 2, 0, 'Bra', '16883.jpg', '', '', 0),
+(12, 1, 2, 12, 'Alec', '68955.jpg', '', 'Sucks', 0),
+(13, 1, 2, 12, 'Alec', '725861.jpg', '', 'Kleyer', 0);
 
 -- --------------------------------------------------------
 
@@ -87,18 +89,18 @@ CREATE TABLE `user` (
   `Password` varchar(20) NOT NULL,
   `FirstName` varchar(15) NOT NULL,
   `LastName` varchar(15) NOT NULL,
-  `DOB` date NOT NULL,
   `COUNTRY` varchar(200) NOT NULL,
-  `Image` varchar(200) NOT NULL
+  `Image` varchar(200) NOT NULL,
+  `PhoneNumber` varchar(20) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `user`
 --
 
-INSERT INTO `user` (`UserID`, `Email`, `Password`, `FirstName`, `LastName`, `DOB`, `COUNTRY`, `Image`) VALUES
-(1, 'minh.95dq@gmail.com', '7042', 'Minh', 'Doan', '0000-00-00', 'USA', ''),
-(2, 'minh.doan@gmail.com', '7042', 'Doan', 'Quang', '0000-00-00', '', '');
+INSERT INTO `user` (`UserID`, `Email`, `Password`, `FirstName`, `LastName`, `COUNTRY`, `Image`, `PhoneNumber`) VALUES
+(1, 'minh.95dq@gmail.com', '7042', 'Minh', 'Doan', 'USA', '', '9293785706'),
+(2, 'minh.95dq@gmail.com', '7042', 'Minh', 'Doan', 'United States', '', '9293785706');
 
 --
 -- Indexes for dumped tables
@@ -135,7 +137,7 @@ ALTER TABLE `messages`
 -- AUTO_INCREMENT for table `product`
 --
 ALTER TABLE `product`
-  MODIFY `ProductID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `ProductID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 --
 -- AUTO_INCREMENT for table `user`
 --
