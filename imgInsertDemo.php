@@ -105,6 +105,11 @@
 			<td colspan="2"><button type="submit" name="btnsave" class="btn btn-default">
 			<span class="glyphicon glyphicon-save"></span> &nbsp; save
 			</button>
+			
+			<a class="btn btn-default" href="userProfile.php">
+		<span class = "glyphicon glyphicon-backward"></span>Cancel</a>
+        </td>
+			
 			</td>
 			</tr>
     
