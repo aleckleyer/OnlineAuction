@@ -80,6 +80,7 @@ if(!$_SESSION['valid_user_id']){
         
         if ($result->num_rows > 0){
           while($row = mysqli_fetch_array($result)){
+            $time = date("h:i:s a", 75317 - $row["TimePlaced"] + $row["TimeLeft"]);
             echo '<div class="col-md-2 product">'.
                     '<div class="row productName text-center">'.
                       '<h5>'.$row["Name"].'</h5>'.
@@ -88,7 +89,7 @@ if(!$_SESSION['valid_user_id']){
                       '<img class="img-responsive" src="product-img/'.$row["Img"].'"/>'.
                     '</div>'.
                     '<div class="row productTime text-center">'.
-                      '<p class="lead">'.$row["TimeLeft"].'</p>'.
+                      '<p class="small" style="padding-bottom:12px;padding-top:5px;">Deadline: '.$time.'</p>'.
                     '</div>'.
                     '<div class="row productBtn">'.
                       '<button type="button" class="btn btn-default btn-block" data-toggle="modal" data-target="#product'.$row["ProductID"].'">$'.$row["Price"].' Bid Now</button>'.
