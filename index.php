@@ -25,12 +25,22 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </button>
-          <a class="navbar-brand" href="#">Online Auction</a>
+          <a class="navbar-brand" href="index.php">Online Auction</a>
         </div>
 
         <!-- Collect the nav links, forms, and other content for toggling -->
           <ul class="nav navbar-nav navbar-right">
             <?php if($_SESSION['valid_user_id']){ ?>
+            <li>
+              <button type="button" class="btn btn-default navBtn">
+                <a href="products.php" class="antiLink">Products</a>
+              </button>
+            </li>
+            <li>
+              <button type="button" class="btn btn-default navBtn">
+                <a href="userProfile.php" class="antiLink">Profile</a>
+              </button>
+            </li>
             <li>
               <button type="button" class="btn btn-default navBtn" data-toggle="modal" data-target="#logOut" id="logOutBtn">
                 Log Out

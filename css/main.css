@@ -116,6 +116,7 @@
     color:#ffffff;
 }
 
-/*.otherNavbar{
-    opacity:0.99!important;
-}*/
+.antiLink, .antiLink:hover{
+    color:white;
+    text-decoration: none;
+}

@@ -1,4 +1,12 @@
-<?php session_start(); ?>
+<?php 
+
+session_start();
+
+if(!$_SESSION['valid_user_id']){
+  header("Location:index.php");
+}
+
+?>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -26,7 +34,7 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </button>
-          <a class="navbar-brand" href="#">Online Auction</a>
+          <a class="navbar-brand" href="index.php">Online Auction</a>
         </div>
         <div>
         <!-- Collect the nav links, forms, and other content for toggling -->
