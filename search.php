@@ -1,30 +1,31 @@
 <?php
-//session_start();
+session_start();
 include 'dbconnect.php';
 include 'validate.php';
 
-$email = $password = "";
-
-if ($_SERVER["REQUEST_METHOD"] == "POST") {/*server array - it is looking for a form with a request method of post, post is another form of array
-New value will be $searchInput = */
+if ($_SERVER["REQUEST_METHOD"] == "POST"){
 	
 	$searchInput = validate_input($_POST['searchInput']);
-	echo $searchInput;
+	$searchInput = strtolower($searchInput);
 
-	/*$query="SELECT * FROM Users WHERE Email='$email' AND Password='$password'";
+	$query="SELECT * FROM `product`";
 
-	$result = $conn->query($query);
+	$result = $conn -> query($query);
 
+	$temp = [];
 	if ($result->num_rows > 0){
 		while($row = mysqli_fetch_array($result)){
-			$_SESSION['valid_user'] = $row['Email'];
-            $_SESSION['valid_user_priv'] = $row['AdminPriv'];
-            $_SESSION['valid_user_id'] = $row['UserID'];
-    	}
-    }
-	else if(!$result)
-		echo "<div class='alert alert-danger'>Could not log you in.</div>";
-*/}	
 
-//header('Location:index.php');
+			if(strpos(strtolower($row["Name"]), $searchInput) !== False || strpos(strtolower($row["Description"]), $searchInput) !== False){
+				array_push($temp, $row["ProductID"]);
+			}
+    	}
+    	$_SESSION["searchedProducts"] = $temp;
+    }
+	else if(!$result){
+		$_SESSION["NoResults"] = 1;
+	}
+}
+
+header('Location:products.php');
 ?>
