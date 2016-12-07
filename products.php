@@ -56,7 +56,25 @@ if(!$_SESSION['valid_user_id']){
         <?php
         require('dbconnect.php');
 
-        $query="SELECT * FROM `product`";
+        if($_SESSION['searchedProducts']){
+          $searchString = implode(',',$_SESSION['searchedProducts']);
+          echo $searchString;
+          $query="SELECT * FROM `product` WHERE `ProductID` IN (".$searchString.")";
+        } else {
+          $query="SELECT * FROM `product`";
+        }
+
+        // $tempString = "";
+        // $index = 0;
+
+        // foreach($_SESSION['searchedProducts'] as $productID){
+        //   if(index == 0){
+        //     $tempString = 
+        //   $tempString = $tempString + $productID
+
+        // }
+
+        
     
         $result = $conn->query($query);
         

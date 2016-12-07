@@ -81,6 +81,14 @@
               <input class="btn btn-default" type="submit" value="Search" id="searchBtn"/>
             </span>
           </div><!-- /input-group -->
+          <?php 
+
+          if($_SESSION["NoResults"] == 1){
+          ?>
+          <div class="alert alert-danger" role="alert">
+            <strong>Lol!</strong> We don't have that.
+          </div>
+          <?php } ?>
           </form>
       </div>
     </div>
