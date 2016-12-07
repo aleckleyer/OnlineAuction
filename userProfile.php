@@ -61,8 +61,8 @@ integrity="sha384-Wrgq82RsEean5tP3NK3zWAemiNEXofJsTwTyHmNb/iL3dP/sZJ4+7sOld1uqYJ
     			<li>
     				<form class="form-horizontal" action="logout.php" method="POST">
     					<div class="form-group">
-    						<div class="col-sm-offset-2 col-sm-10">
-                                <button type="submit" class="btn btn-default navBtn">Log Out</button>
+    						<div class="col-sm-offset-2 col-sm-10" style="padding-right: 0px; padding-left: 15px; margin-left: 0px;">
+                                <button type="submit" class="btn btn-default navBtn" style="margin-bottom: 0px">Log Out</button>
                             </div>
                         </div>
                     </form>
