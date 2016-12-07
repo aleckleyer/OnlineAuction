@@ -68,6 +68,8 @@
 <html>
 <head>
 	<title>Edit product</title>
+	<link href="css/bootstrap.min.css" rel="stylesheet">
+	<link rel="stylesheet" href="css/profile.css">
 </head>
 <body>
 	<form method="post" enctype="multipart/form-data" class="form-horizontal">
