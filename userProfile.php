@@ -20,7 +20,16 @@
     	<link rel="stylesheet" href="css/profile.css">
         <link rel="stylesheet" href="https://opensource.keycdn.com/fontawesome/4.6.3/font-awesome.min.css" 
 integrity="sha384-Wrgq82RsEean5tP3NK3zWAemiNEXofJsTwTyHmNb/iL3dP/sZJ4+7sOld1uqYJtE" crossorigin="anonymous">
-    </head>
+    
+	<style>
+	.modal-backdrop{
+		z-index:1030!important;
+	}
+	.modal{
+		z-index:1040!important;
+	}
+	</style>
+	</head>
     <body>
 
     <nav class="navbar navbar-default">
@@ -173,31 +182,6 @@ integrity="sha384-Wrgq82RsEean5tP3NK3zWAemiNEXofJsTwTyHmNb/iL3dP/sZJ4+7sOld1uqYJ
                 					</button>
           			            </div>
         		              </span>
-    			             <div class="modal fade" id="product<?php echo $product_array[$key]['ProductID'];?>" tabindex="-1" role="dialog" aria-labelledby="gridSystemModalLabel">
-    					       <!--div class="modal-dialog" role="document"-->
-    						      <div class="modal-content">
-    						          <div class="modal-header">
-    							         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-    							         <h4 class="modal-title" id="gridSystemModalLabel">Make A Bid</h4>
-    						          </div>
-        						      <div class="modal-body">
-        							     <form class="form-horizontal" action="makeBid.php?productID=<?php echo $product_array[$key]['ProductID']; ?>" method="POST">
-        								    <div class="form-group">
-        									   <label for="inputEmail3" class="col-sm-2 control-label">Bid:
-        									   </label>
-        									   <div class="col-sm-10">
-        										  <input type="text" class="form-control" id="product<?php echo $product_array[$key]["ProductID"]; ?>" placeholder="$<?php echo $product_array[$key]["Price"]; ?>" name="productBidAmount">
-        									   </div>
-        								    </div>
-        								    <div class="form-group">
-        									   <div class="col-sm-offset-2 col-sm-10">
-        										  <button type="submit" class="btn btn-default">Bid</button>
-        									   </div>
-        								    </div>
-        							     </form>
-        						      </div>
-    						      </div>
-    				        </div>
     			             <?php
     			                     } 
                                  } else {
@@ -604,7 +588,42 @@ integrity="sha384-Wrgq82RsEean5tP3NK3zWAemiNEXofJsTwTyHmNb/iL3dP/sZJ4+7sOld1uqYJ
     </div><!--container close-->
     </div>
     </section><!--section close-->
-    
+	
+	<?php
+		 $product_array = $db_handle->runQuery("SELECT * FROM product WHERE BuyerID = '".$_SESSION['valid_user_id']."' ORDER by ProductID ASC");
+		 if(!empty($product_array)){
+			foreach($product_array as $key=>$value){
+
+	  ?>
+	 <div class="modal fade" id="product<?php echo $product_array[$key]['ProductID'];?>" tabindex="-1" role="dialog" aria-labelledby="gridSystemModalLabel">
+	   <!--div class="modal-dialog" role="document"-->
+		  <div class="modal-content">
+			  <div class="modal-header">
+				 <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+				 <h4 class="modal-title" id="gridSystemModalLabel">Make A Bid</h4>
+			  </div>
+			  <div class="modal-body">
+				 <form class="form-horizontal" action="makeBid.php?productID=<?php echo $product_array[$key]['ProductID']; ?>" method="POST">
+					<div class="form-group">
+					   <label for="inputEmail3" class="col-sm-2 control-label">Bid:
+					   </label>
+					   <div class="col-sm-10">
+						  <input type="text" class="form-control" id="product<?php echo $product_array[$key]["ProductID"]; ?>" placeholder="$<?php echo $product_array[$key]["Price"]; ?>" name="productBidAmount">
+					   </div>
+					</div>
+					<div class="form-group">
+					   <div class="col-sm-offset-2 col-sm-10">
+						  <button type="submit" class="btn btn-default">Bid</button>
+					   </div>
+					</div>
+				 </form>
+			  </div>
+		  </div>
+	</div>
+	 <?php
+			 } 
+		 }
+    ?>
         <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
         <!-- Include all compiled plugins (below), or include individual files as needed -->
