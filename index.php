@@ -66,7 +66,7 @@
           <form action="search.php" method="POST">
           <label id="inputLabel">Want something? We might have it.</label>
           <div class="input-group">
-            <input type="text" class="form-control" placeholder="Search for..." id="searchInput">
+            <input type="text" class="form-control" placeholder="Search for..." name="searchInput">
             <span class="input-group-btn">
               <input class="btn btn-default" type="submit" value="Search" id="searchBtn"/>
             </span>
