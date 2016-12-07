@@ -80,7 +80,7 @@ integrity="sha384-Wrgq82RsEean5tP3NK3zWAemiNEXofJsTwTyHmNb/iL3dP/sZJ4+7sOld1uqYJ
 		<div class="modal-dialog">
 		
 		  <!-- Modal content-->
-		<div class="modal-content" style="background-color:rgb(43, 45, 48); left:148px; margin:0; bottom:171px;">
+		<div class="modal-content" style=" width: 974px; background-color:rgb(43, 45, 48); left:148px; margin:0; bottom:171px;">
 			<div class="modal-header">
 			  <button type="button" class="close" data-dismiss="modal">X</button>
 			  <h4 class="modal-title">Search Section</h4>
