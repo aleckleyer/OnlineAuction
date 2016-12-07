@@ -1,5 +1,8 @@
 <?php
 	session_start();
+	if(!$_SESSION['valid_user_id']){
+		header("Location: index.php");
+	}
 	require_once("config/dbcontroller.php");
 	$db_handle = new DBController();
 	
@@ -17,12 +20,6 @@
 	<link rel="stylesheet" href="css/profile.css">
 	
 	
-    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
-    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-    <!--[if lt IE 9]>
-      <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
-      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
-    <![endif]-->
 	
   </head>
   <body>
@@ -41,7 +38,7 @@ integrity="sha384-Wrgq82RsEean5tP3NK3zWAemiNEXofJsTwTyHmNb/iL3dP/sZJ4+7sOld1uqYJ
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </button>
-          <a class="navbar-brand" href="#">Online Auction</a>
+          <a class="navbar-brand" href="index.php">Online Auction</a>
         </div>
         <!-- Collect the nav links, forms, and other content for toggling -->
 		
@@ -245,20 +242,47 @@ foreach($number as &$char){
 			
 		?>
     		<span class="thumbnail">
-      			<img src="product-img/<?php echo $product_array[$key]["Img"]; ?>" alt="...">
-      			<h4><?php echo $product_array[$key]["Name"]; ?></h4>
+      			
+      			<h5><?php echo $product_array[$key]["Name"]; ?></h5>
+				<img class="img-responsive" src="product-img/<?php echo $product_array[$key]["Img"]; ?>" alt="...">
+				<p class="lead"><?php echo $product_array[$key]["TimeLeft"];?></p>
       			<p><?php echo $product_array[$key]["Description"]; ?></p>
       			<hr class="line">
-      			<div class="row">
-      				<div class="col-md-6 col-sm-6">
-      					<p class="price"><?php echo "$".$product_array[$key]["Price"];?></p>
-      				</div>
-      				<div class="col-md-6 col-sm-6">
+      			<div class="row productBtn">
+					<button type="button" class="btn btn-default btn-block" data-toggle="modal" data-target="#product<?php echo $product_array[$key]['ProductID'];?>"> <?php echo "$".$product_array[$key]["Price"];?> BID
+					</button>
+      				<!--div class="col-md-6 col-sm-6">
       					<button class="btn btn-success right" > BID ITEM</button>
-      				</div>
+      				</div-->
       				
       			</div>
     		</span>
+			<div class="modal fade" id="product<?php echo $product_array[$key]['ProductID'];?>" tabindex="-1" role="dialog" aria-labelledby="gridSystemModalLabel">
+					<!--div class="modal-dialog" role="document"-->
+						<div class="modal-content">
+						<div class="modal-header">
+							<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+							<h4 class="modal-title" id="gridSystemModalLabel">Make A Bid</h4>
+						</div>
+						<div class="modal-body">
+							<form class="form-horizontal" action="makeBid.php?productID=<?php echo $product_array[$key]['ProductID']; ?>" method="POST">
+								<div class="form-group">
+									<label for="inputEmail3" class="col-sm-2 control-label">Bid:
+									</label>
+									<div class="col-sm-10">
+										<input type="text" class="form-control" id="product<?php echo $product_array[$key]["ProductID"]; ?>" placeholder="$<?php echo $product_array[$key]["Price"]; ?>" name="productBidAmount">
+									</div>
+								</div>
+								<div class="form-group">
+									<div class="col-sm-offset-2 col-sm-10">
+										<button type="submit" class="btn btn-default">Bid</button>
+									</div>
+								</div>
+							</form>
+						</div>
+						</div>
+					<!--/div-->
+				</div>
 			<?php
 			} }else{
 				?>
@@ -285,7 +309,7 @@ foreach($number as &$char){
 	<div class="row">
     	<!-- BEGIN PRODUCTS -->
 		<?php
-			$product_array = $db_handle->runQuery("SELECT * FROM product WHERE SellerID = 1 ORDER by ProductID ASC");
+			$product_array = $db_handle->runQuery("SELECT * FROM product WHERE SellerID = '".$_SESSION['valid_user_id']."' ORDER by ProductID ASC");
 			if(!empty($product_array)){
 				foreach($product_array as $key=>$value){
 			
@@ -472,30 +496,6 @@ if(isset($_POST['btn_save_updates'])){
   </div>
   </div>
 </div>
-
-
-<div class="form-group col-md-12">
-  <label class="col-md-10 control-label">New Password</label>  
-  <div class="col-md-12 inputGroupContainer">
-  <div class="input-group">
-  <input  name="first_name" placeholder="Choose Password" class="form-control"  type="password">
-    </div>
-  </div>
-</div>
-
-
-
-<div class="form-group col-md-12">
-  <label class="col-md-10 control-label">Confirm Password</label>  
-  <div class="col-md-12 inputGroupContainer">
-  <div class="input-group">
-  <input  name="first_name" placeholder="Confiram Password" class="form-control"  type="password">
-    </div>
-  </div>
-</div>
-
-
-
 
 <!-- upload profile picture -->
 <div class="col-md-12 text-left">
