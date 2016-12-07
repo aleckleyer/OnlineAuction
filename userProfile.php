@@ -68,17 +68,46 @@ integrity="sha384-Wrgq82RsEean5tP3NK3zWAemiNEXofJsTwTyHmNb/iL3dP/sZJ4+7sOld1uqYJ
                     </form>
     			</li>
     			<li>
-					<form action="search.php" method="POST">
-    				<div class="search">
-    				    <input type="text" class="form-control input-sm" placeholder="Search" name="searchInput">
-    				    <button type="submit" class="btn btn-default btn-primary navBtn" id="searchBtn" value="Search"><span type=" glyphicon glyphicon-search"></span>Search</button>
-    				</div>
-					</form>
+					<a href="#" data-toggle="modal" data-target="#myModal"><span type=" glyphicon glyphicon-search"></span>Search</a>
     			</li>
             </ul>
         </div><!-- /.navbar-collapse -->
     </nav>
-
+	<!--search box-->
+	<div class="container">
+  <!-- Modal -->
+	<div class="modal fade" id="myModal" role="dialog">
+		<div class="modal-dialog">
+		
+		  <!-- Modal content-->
+		<div class="modal-content" style="background-color:rgb(43, 45, 48); left:148px; margin:0; bottom:171px;">
+			<div class="modal-header">
+			  <button type="button" class="close" data-dismiss="modal">X</button>
+			  <h4 class="modal-title">Search Section</h4>
+			</div>
+			<div class="modal-body">
+				<section class="search-box1" id="panel" >
+					<div class="container" style="padding:0">
+						<form class="form-inline" role="form" style="margin-bottom:0px;" action="search.php" method="POST">
+							<div class="col-sm-8 col-xs-8 form-group top_search" style="padding-right:0px;">
+								<div class="row">
+									<input type="text" name="searchInput" class="form-control search-wrap" id="search" placeholder="Search here..." style="height:40px; padding-left:10px">
+								</div>
+							</div>
+							<div class="row" style="width: 378px; float: right;">
+								<div class="col-sm-4 col-xs-4 form-group top_search" style="padding:0px; margin:0px;">
+									<button type="submit" class="btn btn-default search-btn" value="Search" style="height: 41px">SEARCH</button>
+								</div>
+							</div>
+						</form>
+					</div>
+				</section>
+			</div>
+		</div>
+		</div>
+      
+    </div>
+	</div>
     <br><br><br><br><br>
 
     <section>
