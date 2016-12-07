@@ -194,13 +194,14 @@ integrity="sha384-Wrgq82RsEean5tP3NK3zWAemiNEXofJsTwTyHmNb/iL3dP/sZJ4+7sOld1uqYJ
     		              </div>
     	                  <div class="row">
         	               <!-- BEGIN PRODUCTS -->
-      		            <div class="col-md-3 col-sm-6">
-    			             <?php
+						   <?php
     			                 $product_array = $db_handle->runQuery("SELECT * FROM product WHERE BuyerID = '".$_SESSION['valid_user_id']."' ORDER by ProductID ASC");
     			                 if(!empty($product_array)){
     				                foreach($product_array as $key=>$value){
     			
     		                  ?>
+      		            <div class="col-md-3 col-sm-6">
+    			             
         		              <span class="thumbnail">
           			
                       			<h5><?php echo $product_array[$key]["Name"]; ?></h5>
@@ -213,6 +214,7 @@ integrity="sha384-Wrgq82RsEean5tP3NK3zWAemiNEXofJsTwTyHmNb/iL3dP/sZJ4+7sOld1uqYJ
                 					</button>
           			            </div>
         		              </span>
+						</div>
     			             <?php
     			                     } 
                                  } else {
@@ -225,7 +227,7 @@ integrity="sha384-Wrgq82RsEean5tP3NK3zWAemiNEXofJsTwTyHmNb/iL3dP/sZJ4+7sOld1uqYJ
     		              <?php
     			             }
     		                  ?>
-      	                 </div>
+      	                 
     	           </div>
     	
     	       <div class = "row">
