@@ -173,7 +173,7 @@ integrity="sha384-Wrgq82RsEean5tP3NK3zWAemiNEXofJsTwTyHmNb/iL3dP/sZJ4+7sOld1uqYJ
     		              <div class = "row">
 								<h2 class="userProfileTitle">Your Current bids<h2>
 								<?php
-    			                 $product_array = $db_handle->runQuery("SELECT * FROM product WHERE BuyerID = '".$_SESSION['valid_user_id']."' AND TimeLeft = 0 ORDER by ProductID ASC");
+    			                 $product_array = $db_handle->runQuery("SELECT * FROM product WHERE BuyerID = '".$_SESSION['valid_user_id']."' ORDER by ProductID ASC");
     			                 if(!empty($product_array)){?>
 								<button class="btn btn-success right" onclick="location.href='checkout.php?user_id=<?php echo $_SESSION['valid_user_id'];?>'" > CHECK OUT</button>
     		              </div>
