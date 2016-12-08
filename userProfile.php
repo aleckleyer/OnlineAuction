@@ -190,13 +190,16 @@ integrity="sha384-Wrgq82RsEean5tP3NK3zWAemiNEXofJsTwTyHmNb/iL3dP/sZJ4+7sOld1uqYJ
                 <div class="tab-pane fade active in" id="profile">
     		          <div class="container" style="padding-right:58px; padding-left:8px;">
     		              <div class = "row">
-    		                  <h2>Your Current bids<h2>
+								<h2>Your Current bids<h2>
+								<?php
+    			                 $product_array = $db_handle->runQuery("SELECT * FROM product WHERE BuyerID = '".$_SESSION['valid_user_id']."' AND TimeLeft = 0 ORDER by ProductID ASC");
+    			                 if(!empty($product_array)){?>
+								<button class="btn btn-success right" onclick="location.href='checkout.php?user_id=<?php echo $_SESSION['valid_user_id'];?>'" > CHECK OUT</button>
     		              </div>
     	                  <div class="row">
         	               <!-- BEGIN PRODUCTS -->
 						   <?php
-    			                 $product_array = $db_handle->runQuery("SELECT * FROM product WHERE BuyerID = '".$_SESSION['valid_user_id']."' ORDER by ProductID ASC");
-    			                 if(!empty($product_array)){
+									$_SESSION['shopping-cart']=$product_array;
     				                foreach($product_array as $key=>$value){
     			
     		                  ?>
@@ -210,7 +213,7 @@ integrity="sha384-Wrgq82RsEean5tP3NK3zWAemiNEXofJsTwTyHmNb/iL3dP/sZJ4+7sOld1uqYJ
                       			<p><?php echo $product_array[$key]["Description"]; ?></p>
                       			<hr class="line">
                       			<div class="row productBtn">
-                					<button type="button" class="btn btn-default btn-block" data-toggle="modal" data-target="#product<?php echo $product_array[$key]['ProductID'];?>"> <?php echo "$".$product_array[$key]["Price"];?> BID
+                					<button type="button" class="btn btn-default btn-block" data-toggle="modal" data-target="#product<?php echo $product_array[$key]['ProductID'];?>" disabled> <!--php echo "$".$product_array[$key]["Price"];?--> IT's YOURS
                 					</button>
           			            </div>
         		              </span>
