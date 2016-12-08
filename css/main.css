@@ -90,16 +90,12 @@
 }
 
 .product{
-    border: 1px solid black;
     margin:18px;
-    border-radius:5px;
     height:260px;
     background-color: #0c131b;
 }
 
 .productImg{
-    border: 1px solid black;
-    border-radius: 5px;
     height:150px;
     margin-top:15px!important;
     background-image: #ffffff;

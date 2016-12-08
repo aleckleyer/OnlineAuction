@@ -28,7 +28,7 @@ width: 100%;border-radius: 0px 20px 20px 0px;color: #fff !important;height: 40px
 
 .page-header {background:#ccc;margin:0;}
 
-.profile-head { width:100%;background-color: rgb(85, 90, 95);float: left;padding: 15px 5px; margin-top:-86px;}
+.profile-head { width:100%;background-color: #0c131b;float: left;padding: 15px 5px; margin-top:-86px; opacity: 0.80;}
 .profile-head img { height:150px; width:150px; margin:0 auto; border:5px solid #fff; border-radius:5px;}
 .profile-head h5 {width: 100%;padding:5px 5px 0px 5px;text-align:justify;font-weight: bold;color: #fff;font-size: 25px;text-transform:capitalize;
 margin-bottom: 0;}
@@ -44,12 +44,11 @@ margin-bottom: 0;}
 
 
 .nav-tabs {margin: 0;padding: 0;border: 0;}
-.nav-tabs > li > a {background: #DADADA;border-radius: 0;
-    box-shadow: inset 0 -8px 7px -9px rgba(0,0,0,.4),-2px -2px 5px -2px rgba(0,0,0,.4);}
+.nav-tabs > li > a {background: #0c131b;border-radius: 0;}
 .nav-tabs > li.active > a,
-.nav-tabs > li.active > a:hover {background: #F5F5F5;
+.nav-tabs > li.active > a:hover {background: #0c131b;
     box-shadow: inset 0 0 0 0 rgba(0,0,0,.4),-2px -3px 5px -2px rgba(0,0,0,.4);}
-.tab-pane {background: #ffffff;box-shadow: 0 0 4px rgba(0,0,0,.4);border-radius: 0;text-align: center;padding: 10px;}
+.tab-pane {background: #0c131b;opacity:0.80!important;box-shadow: 0 0 4px rgba(0,0,0,.4);border-radius: 0;text-align: center;padding: 10px;}
 .tab-content>.active {margin-top:50px;/*width:100% !important;*/} 
 
 /* edit profile css*/
@@ -270,3 +269,8 @@ ul.mail-list li span.mail-message-preview{
     top: 5px;
     border-radius:1px;
 }*/
+
+
+.userProfileTitle{
+    color:white;
+}

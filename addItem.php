@@ -11,6 +11,7 @@
 		$productname = $_POST['product_name'];
 		$productdescription = $_POST['product_description'];
 		$productprice = $_POST['product_price'];
+		$producttime = $_POST['product_time'];
 		
 		$imgFile = $_FILES['product_image']['name'];
 		$tmp_dir = $_FILES['product_image']['tmp_name'];
@@ -45,7 +46,7 @@
 			
 			//if no error
 			if(!isset($errMSG)){
-				$stmt_add = $db_handle->runQuery("INSERT INTO product(SellerID, Price, Name, Img, Description) VALUES ('".$_SESSION['valid_user_id']."','".$productprice."','".$productname."','".$img."','".$productdescription."')");
+				$stmt_add = $db_handle->runQuery("INSERT INTO product(SellerID, Price, Name, Img, Description, TimeLeft) VALUES ('".$_SESSION['valid_user_id']."','".$productprice."','".$productname."','".$img."','".$productdescription."','".$producttime."')");
 				
 					$successMSG = "New record inserted!";
 					header("Location: userProfile.php");
@@ -63,6 +64,7 @@
 	<title>List products</title>
 	<link href="css/bootstrap.min.css" rel="stylesheet">
 	<link rel="stylesheet" href="css/profile.css">
+	<link rel="stylesheet" href="css/addItem.css">
 </head>
 <body>
 	<?php
@@ -81,7 +83,7 @@
         <?php
 	}
 	?>  
-	<form method="POST" enctype="multipart/form-data" class = "form-horizontal">
+<!-- 	<form method="POST" enctype="multipart/form-data" class = "form-horizontal">
 		<table class="table table-bordered table-responsive" style="border:1">
 			
 			<tr>
@@ -115,6 +117,42 @@
     
     </table>
     
-</form>
+</form> -->
+
+<div class="container">
+    <div class="row">
+		<form role="form" enctype="multipart/form-data" class="col-md-9 go-right" method="POST">
+			<h2>Add An Item</h2>
+            <p>Please, use the form below if you'd like to list an item for auction.</p>
+			<div class="form-group">
+			<input id="product_name" name="product_name" type="text" class="form-control" value="" required>
+			<label for="product_name">Product Name</label>
+		</div>
+		<div class="form-group">
+			<textarea id="description" name="product_description" class="form-control" value="" required></textarea> 
+			<label for="product_description">Description</label>
+		</div>
+		<div class="form-group">
+			<input id="product_time" class="form-control" type="num" name="product_time" required/>
+			<label for="product_time">How Long Would You Like To List The Item For? (Seconds)</label>
+		</div>
+		<div class="form-group">
+			<input id="product_price" class="form-control" type="num" name="product_price" required/>
+			<label for="product_price">Price</label>
+		</div>
+		<div class="form-group">
+			<input class="input-group" type="file" name="product_image" />
+		</div>
+		<div class="form-group">
+			<button type="submit" name="btnsave" class="btn btn-default">
+			<span class="glyphicon glyphicon-save"></span> &nbsp; save
+			</button>
+			<a class="btn btn-default" href="userProfile.php">Cancel</a>
+		</div>
+
+		</form>
+        
+	</div>
+</div>
 </body>
 </html>

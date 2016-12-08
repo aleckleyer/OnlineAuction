@@ -31,9 +31,10 @@ integrity="sha384-Wrgq82RsEean5tP3NK3zWAemiNEXofJsTwTyHmNb/iL3dP/sZJ4+7sOld1uqYJ
 	</style>
 	</head>
     <body>
+    <div class="background"></div>
 
-    <nav class="navbar navbar-default">
-        <div class="container-fluid" style="background-color: rgb(43, 45, 48);">
+    <nav class="navbar">
+        <div class="container-fluid" style="background-color: #0c131b;opacity:0.7;">
         <!-- Brand and toggle get grouped for better mobile display -->
             <div class="navbar-header">
                 <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
@@ -58,6 +59,13 @@ integrity="sha384-Wrgq82RsEean5tP3NK3zWAemiNEXofJsTwTyHmNb/iL3dP/sZJ4+7sOld1uqYJ
     				}} 
     				?>	
     			</li>
+                <li>
+                <div class="col-sm-offset-2 col-sm-10" style="padding-right: 0px; padding-left: 15px; margin-left: 0px;">
+                  <button type="button" class="btn btn-default navBtn">
+                    <a href="products.php" class="antiLink">Products</a>
+                  </button>
+                </div>
+                </li>
     			<li>
     				<form class="form-horizontal" action="logout.php" method="POST">
     					<div class="form-group">
@@ -68,46 +76,19 @@ integrity="sha384-Wrgq82RsEean5tP3NK3zWAemiNEXofJsTwTyHmNb/iL3dP/sZJ4+7sOld1uqYJ
                     </form>
     			</li>
     			<li>
-					<a href="#" data-toggle="modal" data-target="#myModal"><span type=" glyphicon glyphicon-search"></span>Search</a>
+                    <div class="form-group">
+                        <!-- Button trigger modal -->
+                        <div class="col-sm-offset-2 col-sm-10" style="padding-right: 0px; padding-left: 15px; margin-left: 0px;">
+                        <button type="button" class="btn btn-default navBtn" data-toggle="modal" data-target="#myModal" style="margin-bottom: 0px">
+                          Search
+                        </button>
+                        </div>
+                    </div>
     			</li>
             </ul>
         </div><!-- /.navbar-collapse -->
     </nav>
-	<!--search box-->
-	<div class="container">
-  <!-- Modal -->
-	<div class="modal fade" id="myModal" role="dialog">
-		<div class="modal-dialog">
-		
-		  <!-- Modal content-->
-		<div class="modal-content" style=" width: 974px; background-color:rgb(43, 45, 48); left:148px; margin:0; bottom:171px;">
-			<div class="modal-header">
-			  <button type="button" class="close" data-dismiss="modal">X</button>
-			  <h4 class="modal-title">Search Section</h4>
-			</div>
-			<div class="modal-body">
-				<section class="search-box1" id="panel" >
-					<div class="container" style="padding:0">
-						<form class="form-inline" role="form" style="margin-bottom:0px;" action="search.php" method="POST">
-							<div class="col-sm-8 col-xs-8 form-group top_search" style="padding-right:0px;">
-								<div class="row">
-									<input type="text" name="searchInput" class="form-control search-wrap" id="search" placeholder="Search here..." style="height:40px; padding-left:10px">
-								</div>
-							</div>
-							<div class="row" style="width: 378px; float: right;">
-								<div class="col-sm-4 col-xs-4 form-group top_search" style="padding:0px; margin:0px;">
-									<button type="submit" class="btn btn-default search-btn" value="Search" style="height: 41px">SEARCH</button>
-								</div>
-							</div>
-						</form>
-					</div>
-				</section>
-			</div>
-		</div>
-		</div>
-      
-    </div>
-	</div>
+
     <br><br><br><br><br>
 
     <section>
@@ -190,7 +171,7 @@ integrity="sha384-Wrgq82RsEean5tP3NK3zWAemiNEXofJsTwTyHmNb/iL3dP/sZJ4+7sOld1uqYJ
                 <div class="tab-pane fade active in" id="profile">
     		          <div class="container" style="padding-right:58px; padding-left:8px;">
     		              <div class = "row">
-								<h2>Your Current bids<h2>
+								<h2 class="userProfileTitle">Your Current bids<h2>
 								<?php
     			                 $product_array = $db_handle->runQuery("SELECT * FROM product WHERE BuyerID = '".$_SESSION['valid_user_id']."' AND TimeLeft = 0 ORDER by ProductID ASC");
     			                 if(!empty($product_array)){?>
@@ -223,9 +204,9 @@ integrity="sha384-Wrgq82RsEean5tP3NK3zWAemiNEXofJsTwTyHmNb/iL3dP/sZJ4+7sOld1uqYJ
     			                     } 
                                  } else {
     				         ?>
-    				        <div class = "col-md-3 col-sm-6">
-    					       <span class="thumbnail">
-    						      &nbsp; You have not bid anything!
+    				        <div class = "col-md-3 col-sm-6" style="left:37%">
+    					       <span class="thumbnail" style="background-color: #0c131b; padding:10px">
+    						      <p class="small" style="color:white">You have not bid on anything!</p>
     					       </span>
     				        </div>
     		              <?php
@@ -235,9 +216,9 @@ integrity="sha384-Wrgq82RsEean5tP3NK3zWAemiNEXofJsTwTyHmNb/iL3dP/sZJ4+7sOld1uqYJ
     	           </div>
     	
     	       <div class = "row">
-    		      <h2>Your Listed Products<h2>
-    		      <button class="btn btn-success right" onclick="location.href='imgInsertDemo.php?user_id=<?php echo $_SESSION['valid_user_id'];?>'" > ADD ITEMS</button>
-    		  </div>
+    		      <h2 class="userProfileTitle">Your Listed Products<h2>
+                </div>
+                
     		
     	       <div class="row">
                 	<!-- BEGIN PRODUCTS -->
@@ -286,16 +267,18 @@ integrity="sha384-Wrgq82RsEean5tP3NK3zWAemiNEXofJsTwTyHmNb/iL3dP/sZJ4+7sOld1uqYJ
     		<?php
     			}} else{
     				?>
-    				<div class = "col-md-3 col-sm-6">
-    					<span class="thumbnail">
-    						&nbsp; You have not listed any products!
+    				<div class = "col-md-3 col-sm-6" style="left:37%">
+    					<span class="thumbnail" style="background-color: #0c131b; padding:10px;">
+    						<p style="color:white;">&nbsp; You have not listed any products!</p>
     					</span>
     				</div>
     		<?php
     			}
     		?>
     		</div>
-      		
+      		<div class = "row">
+                  <button class="btn btn-success right" onclick="location.href='addItem.php?user_id=<?php echo $_SESSION['valid_user_id'];?>'" > ADD ITEMS</button>
+              </div>
         </div><!--container close-->
     </div><!--tab-pane close-->
           
@@ -305,7 +288,7 @@ integrity="sha384-Wrgq82RsEean5tP3NK3zWAemiNEXofJsTwTyHmNb/iL3dP/sZJ4+7sOld1uqYJ
     <div class="container fom-main">
     <div class="row">
     <div class="col-sm-12">
-    <h2 class="register">Edit Your Profile</h2>
+    <h2 class="userProfileTitle">Edit Your Profile</h2>
     </div><!--col-sm-12 close-->
     </div><!--row close-->
     <?php
@@ -661,10 +644,42 @@ integrity="sha384-Wrgq82RsEean5tP3NK3zWAemiNEXofJsTwTyHmNb/iL3dP/sZJ4+7sOld1uqYJ
 			 } 
 		 }
     ?>
+
+
         <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
         <!-- Include all compiled plugins (below), or include individual files as needed -->
+        <script src="js/tether.min.js"></script>
         <script src="js/bootstrap.min.js"></script>
-    		
+    		    <script>
+        jQuery(document).ready(function() {
+     $$('.popover-dismiss').popover({
+  trigger: 'focus'
+})
+ });
+    </script>
+
+        <!-- Modal -->
+        <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" >
+          <div class="modal-dialog modal-sm" role="document" style="top:-30%;width:50%!important;">
+            <div class="modal-content">
+              <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+                <h4 class="modal-title" id="myModalLabel">Want something? We might have it.</h4>
+              </div>
+              <div class="modal-body">
+                      <form action="searchUser.php" method="POST">
+                      <div class="input-group">
+                        <input type="text" class="input-sm" style="width:100%;color:black;" placeholder="Search for..." name="searchInput">
+                        <span class="input-group-btn">
+                          <input class="btn btn-default btn-sm" type="submit" value="Search" id="searchBtn"/>
+                        </span>
+                      </div><!-- /input-group -->
+                      </form>
+              </div>
+          </div>
+        </div>
       </body>
 </html>

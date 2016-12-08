@@ -58,7 +58,6 @@ if(!$_SESSION['valid_user_id']){
 
         if($_SESSION['searchedProducts']){
           $searchString = implode(',',$_SESSION['searchedProducts']);
-          echo $searchString;
           $query="SELECT * FROM `product` WHERE `ProductID` IN (".$searchString.")";
         } else {
           $query="SELECT * FROM `product`";
@@ -74,19 +73,20 @@ if(!$_SESSION['valid_user_id']){
 
         // }
 
-        
+        $timezone = date_default_timezone_get();
+        date_default_timezone_set($timezone);
     
         $result = $conn->query($query);
         
         if ($result->num_rows > 0){
           while($row = mysqli_fetch_array($result)){
-            $time = date("h:i:s a", 75317 - $row["TimePlaced"] + $row["TimeLeft"]);
+            $time = date("h:i:s a", $row["TimePlaced"] + $row["TimeLeft"]);
             echo '<div class="col-md-2 product">'.
                     '<div class="row productName text-center">'.
                       '<h5>'.$row["Name"].'</h5>'.
                     '</div>'.
                     '<div class="row productImg">'.
-                      '<img class="img-responsive" src="product-img/'.$row["Img"].'"/>'.
+                      '<img class="img-thumbnail" src="product-img/'.$row["Img"].'"/>'.
                     '</div>'.
                     '<div class="row productTime text-center">'.
                       '<p class="small" style="padding-bottom:12px;padding-top:5px;">Deadline: '.$time.'</p>'.
