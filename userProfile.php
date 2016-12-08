@@ -117,17 +117,17 @@ integrity="sha384-Wrgq82RsEean5tP3NK3zWAemiNEXofJsTwTyHmNb/iL3dP/sZJ4+7sOld1uqYJ
                 <?php
     	           $user_array = $db_handle->runQuery("SELECT Email, FirstName, LastName, COUNTRY, PhoneNumber FROM user where UserID='".$_SESSION['valid_user_id']."'");
     	           if(!empty($user_array)){
-    		          foreach($user_array as $key=>$value){
+    		          foreach($user_array as $k=>$value){
                 ?>
                 <div class="col-md- col-sm-4 col-xs-12">
                     <img src="img/smileface.jpg" class="img-responsive" />
                     <?php
                         echo "<h6>";
-                        echo $user_array[$key]["FirstName"]." ".$user_array[$key]["LastName"]; 
+                        echo $user_array[$k]["FirstName"]." ".$user_array[$k]["LastName"]; 
                         echo "</h6>";?>
                 </div><!--col-md-4 col-sm-4 col-xs-12 close-->
                 <div class="col-md-5 col-sm-5 col-xs-12">
-                    <h5><?php echo $user_array[$key]["FirstName"]." ".$user_array[$key]["LastName"]; ?></h5>
+                    <h5><?php echo $user_array[$k]["FirstName"]." ".$user_array[$k]["LastName"]; ?></h5>
                     <!--p>Web Designer / Develpor </p-->
                     <ul>
                         <li><span class="glyphicon glyphicon-map-marker"></span><?php echo $user_array[$key]["COUNTRY"];?></li>
@@ -209,8 +209,9 @@ integrity="sha384-Wrgq82RsEean5tP3NK3zWAemiNEXofJsTwTyHmNb/iL3dP/sZJ4+7sOld1uqYJ
           			
                       			<h5><?php echo $product_array[$key]["Name"]; ?></h5>
                 				<img class="img-responsive" src="product-img/<?php echo $product_array[$key]["Img"]; ?>" alt="...">
-                				<p class="lead"><?php echo $product_array[$key]["TimeLeft"];?></p>
+                				<p class="lead">$<?php echo $product_array[$key]["Price"];?></p>
                       			<p><?php echo $product_array[$key]["Description"]; ?></p>
+								<p>Contact: <?php echo $user_array[$k]["Email"]; ?></p>
                       			<hr class="line">
                       			<div class="row productBtn">
                 					<button type="button" class="btn btn-default btn-block" data-toggle="modal" data-target="#product<?php echo $product_array[$key]['ProductID'];?>" disabled> <!--php echo "$".$product_array[$key]["Price"];?--> IT's YOURS
