@@ -211,7 +211,15 @@ integrity="sha384-Wrgq82RsEean5tP3NK3zWAemiNEXofJsTwTyHmNb/iL3dP/sZJ4+7sOld1uqYJ
                 				<img class="img-responsive" src="product-img/<?php echo $product_array[$key]["Img"]; ?>" alt="...">
                 				<p class="lead">$<?php echo $product_array[$key]["Price"];?></p>
                       			<p><?php echo $product_array[$key]["Description"]; ?></p>
-								<p>Contact: <?php echo $user_array[$k]["Email"]; ?></p>
+								<?php
+									$get_mail = $db_handle->runQuery("SELECT Email FROM user WHERE UserID = '".$product_array[$key]["SellerID"]."'");
+									if(!empty($get_mail)){
+										foreach($get_mail as $ka=>$va){
+								?>
+								<p>Contact: <?php echo $get_mail[$ka]["Email"]; ?></p>
+								<?php }
+									}
+								?>
                       			<hr class="line">
                       			<div class="row productBtn">
                 					<button type="button" class="btn btn-default btn-block" data-toggle="modal" data-target="#product<?php echo $product_array[$key]['ProductID'];?>" disabled> <!--php echo "$".$product_array[$key]["Price"];?--> IT's YOURS
