@@ -73,14 +73,56 @@ if(!$_SESSION['valid_user_id']){
 
         // }
 
-        $timezone = date_default_timezone_get();
-        date_default_timezone_set($timezone);
-    
+        
+		
         $result = $conn->query($query);
         
         if ($result->num_rows > 0){
           while($row = mysqli_fetch_array($result)){
-            $time = date("h:i:s a", $row["TimePlaced"] + $row["TimeLeft"]);
+			date_default_timezone_set("America/New_York");
+			$current = date('Y-m-d H:i:s');
+			$timeclose = date('Y-m-d H:i:s', strtotime($row["TimePlaced"]) + $row["TimeLeft"]);
+			if($timeclose <= $current){
+				
+			echo '<div class="col-md-2 product">'.
+                    '<div class="row productName text-center">'.
+                      '<h5>'.$row["Name"].'</h5>'.
+                    '</div>'.
+                    '<div class="row productImg">'.
+                      '<img class="img-thumbnail" src="product-img/'.$row["Img"].'"/>'.
+                    '</div>'.
+                    '<div class="row productTime text-center">'.
+                      '<p class="small" style="padding-bottom:12px;">Deadline: '.$timeclose.'</p>'.
+                    '</div>'.
+                    '<div class="row productBtn">'.
+                      '<button type="button" class="btn btn-default btn-block" data-toggle="modal" data-target="#product'.$row["ProductID"].'" disabled >$'.$row["Price"].' SOLD OUT</button>'.
+                    '</div>'.
+                  '</div>'.
+                  '<div class="modal fade" id="product'.$row["ProductID"].'" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">'.
+                    '<div class="modal-dialog" role="document">'.
+                      '<div class="modal-content">'.
+                        '<div class="modal-header">'.
+                          '<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>'.
+                          '<h4 class="modal-title" id="myModalLabel">Make A Bid</h4>'.
+                        '</div>'.
+                        '<div class="modal-body">'.
+                          '<form class="form-horizontal" action="makeBid.php?productID='.$row["ProductID"].'" method="POST">'.
+                            '<div class="form-group">'.
+                              '<label for="inputEmail3" class="col-sm-2 control-label">Bid: </label>'.
+                              '<div class="col-sm-10">'.
+                                '<input type="text" class="form-control" id="product'.$row["ProductID"].'" placeholder="$'.$row["Price"].'" name="productBidAmount">'.
+                              '</div>'.
+                            '</div>'.
+                            '<div class="form-group">'.
+                              '<div class="col-sm-offset-2 col-sm-10">'.
+                                '<button type="submit" class="btn btn-default" disabled>SOLD</button>'.
+                              '</div>'.
+                            '</div>'.
+                          '</form>'.
+                        '</div>'.
+                      '</div>'.
+                    '</div>'.
+                  '</div>';}else{
             echo '<div class="col-md-2 product">'.
                     '<div class="row productName text-center">'.
                       '<h5>'.$row["Name"].'</h5>'.
@@ -89,7 +131,7 @@ if(!$_SESSION['valid_user_id']){
                       '<img class="img-thumbnail" src="product-img/'.$row["Img"].'"/>'.
                     '</div>'.
                     '<div class="row productTime text-center">'.
-                      '<p class="small" style="padding-bottom:12px;padding-top:5px;">Deadline: '.$time.'</p>'.
+                      '<p class="small" style="padding-bottom:12px;">Deadline: '.$timeclose.'</p>'.
                     '</div>'.
                     '<div class="row productBtn">'.
                       '<button type="button" class="btn btn-default btn-block" data-toggle="modal" data-target="#product'.$row["ProductID"].'">$'.$row["Price"].' Bid Now</button>'.
@@ -120,6 +162,7 @@ if(!$_SESSION['valid_user_id']){
                       '</div>'.
                     '</div>'.
                   '</div>';
+			}
           }
         }
 

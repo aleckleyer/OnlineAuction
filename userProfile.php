@@ -173,7 +173,27 @@ integrity="sha384-Wrgq82RsEean5tP3NK3zWAemiNEXofJsTwTyHmNb/iL3dP/sZJ4+7sOld1uqYJ
     		              <div class = "row">
 								<h2 class="userProfileTitle">Your Current bids<h2>
 								<?php
-    			                 $product_array = $db_handle->runQuery("SELECT * FROM product WHERE BuyerID = '".$_SESSION['valid_user_id']."' ORDER by ProductID ASC");
+								
+								$get_time = $db_handle->runQuery("SELECT TimeLeft, TimePlaced FROM product WHERE BuyerID = '".$_SESSION['valid_user_id']."'");
+								date_default_timezone_set("America/New_York");
+								$currenttime = date("Y-m-d H:i:s");
+							//	echo $currenttime." ";
+								if(!empty($get_time)){
+									foreach($get_time as $ek => $av){
+									$timeplaced = $get_time[$ek]["TimePlaced"];
+									$timeleft = strtotime(-$get_time[$ek]["TimeLeft"]." seconds");
+									//$close = date('Y-m-d H:i:s', $timeleft);
+									$timeclosed = date('Y-m-d H:i:s', strtotime($timeplaced)+$get_time[$ek]["TimeLeft"]);
+									//echo $timeclosed." ";
+									//echo "Placed: ".$timeplaced."<br>";
+									//$diff = strtotime($currenttime) - strtotime($timeplaced);
+									//echo "Diff: ".$diff."<br>";
+									//echo "Diff: ".date("Y-m-d h:i:sa", "'".$timeleft."' seconds")."<br>";
+									//echo "Closed: ".$close."<br>";
+									}
+								}
+								if($timeclosed <= $currenttime){
+    			                $product_array = $db_handle->runQuery("SELECT * FROM product WHERE BuyerID = '".$_SESSION['valid_user_id']."' ORDER by ProductID ASC");
     			                 if(!empty($product_array)){?>
 								<button class="btn btn-success right" onclick="location.href='checkout.php?user_id=<?php echo $_SESSION['valid_user_id'];?>'" > CHECK OUT</button>
     		              </div>
@@ -210,7 +230,7 @@ integrity="sha384-Wrgq82RsEean5tP3NK3zWAemiNEXofJsTwTyHmNb/iL3dP/sZJ4+7sOld1uqYJ
 						</div>
     			             <?php
     			                     } 
-                                 } else {
+								}} else {
     				         ?>
     				        <div class = "col-md-3 col-sm-6" style="left:37%">
     					       <span class="thumbnail" style="background-color: #0c131b; padding:10px">
@@ -218,7 +238,7 @@ integrity="sha384-Wrgq82RsEean5tP3NK3zWAemiNEXofJsTwTyHmNb/iL3dP/sZJ4+7sOld1uqYJ
     					       </span>
     				        </div>
     		              <?php
-    			             }
+								}
     		                  ?>
       	                 
     	           </div>
