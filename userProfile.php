@@ -173,9 +173,8 @@ integrity="sha384-Wrgq82RsEean5tP3NK3zWAemiNEXofJsTwTyHmNb/iL3dP/sZJ4+7sOld1uqYJ
     		              <div class = "row">
 								<h2 class="userProfileTitle">Your Current bids<h2>
 								<?php
-    			                 $product_array = $db_handle->runQuery("SELECT * FROM product WHERE BuyerID = '".$_SESSION['valid_user_id']."' ORDER by ProductID ASC");
+    			                 $product_array = $db_handle->runQuery("SELECT * FROM product WHERE BuyerID = '".$_SESSION['valid_user_id']."' AND NOW() < (TimePlaced + TimeLeft) ORDER by ProductID ASC");
     			                 if(!empty($product_array)){?>
-								<button class="btn btn-success right" onclick="location.href='checkout.php?user_id=<?php echo $_SESSION['valid_user_id'];?>'" > CHECK OUT</button>
     		              </div>
     	                  <div class="row">
         	               <!-- BEGIN PRODUCTS -->
@@ -222,6 +221,60 @@ integrity="sha384-Wrgq82RsEean5tP3NK3zWAemiNEXofJsTwTyHmNb/iL3dP/sZJ4+7sOld1uqYJ
     		                  ?>
       	                 
     	           </div>
+
+                   <div class = "row">
+                                <h2 class="userProfileTitle">Your Won Products<h2>
+                                <?php
+                                 $product_array = $db_handle->runQuery("SELECT * FROM product WHERE BuyerID = '".$_SESSION['valid_user_id']."' AND NOW() > (TimePlaced + TimeLeft) ORDER by ProductID ASC");
+                                 if(!empty($product_array)){?>
+                                 <button class="btn btn-success right" onclick="location.href='checkout.php?user_id=<?php echo $_SESSION['valid_user_id'];?>'" > CHECK OUT</button>
+                                
+                          </div>
+                          <div class="row">
+                           <!-- BEGIN PRODUCTS -->
+                           <?php
+                                    $_SESSION['shopping-cart']=$product_array;
+                                    foreach($product_array as $key=>$value){
+                
+                              ?>
+                        <div class="col-md-3 col-sm-6">
+                             
+                              <span class="thumbnail">
+                    
+                                <h5><?php echo $product_array[$key]["Name"]; ?></h5>
+                                <img class="img-responsive" src="product-img/<?php echo $product_array[$key]["Img"]; ?>" alt="...">
+                                <p class="lead">$<?php echo $product_array[$key]["Price"];?></p>
+                                <p><?php echo $product_array[$key]["Description"]; ?></p>
+                                <?php
+                                    $get_mail = $db_handle->runQuery("SELECT Email FROM user WHERE UserID = '".$product_array[$key]["SellerID"]."'");
+                                    if(!empty($get_mail)){
+                                        foreach($get_mail as $ka=>$va){
+                                ?>
+                                <p>Contact: <?php echo $get_mail[$ka]["Email"]; ?></p>
+                                <?php }
+                                    }
+                                ?>
+                                <hr class="line">
+                                <div class="row productBtn">
+                                    <button type="button" class="btn btn-default btn-block" data-toggle="modal" data-target="#product<?php echo $product_array[$key]['ProductID'];?>" disabled> <!--php echo "$".$product_array[$key]["Price"];?--> IT's YOURS
+                                    </button>
+                                </div>
+                              </span>
+                        </div>
+                             <?php
+                                     } 
+                                 } else {
+                             ?>
+                            <div class = "col-md-3 col-sm-6" style="left:37%">
+                               <span class="thumbnail" style="background-color: #0c131b; padding:10px">
+                                  <p class="small" style="color:white">You have not won anything yet!</p>
+                               </span>
+                            </div>
+                          <?php
+                             }
+                              ?>
+                         
+                   </div>
     	
     	       <div class = "row">
     		      <h2 class="userProfileTitle">Your Listed Products<h2>

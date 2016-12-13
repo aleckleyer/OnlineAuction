@@ -63,24 +63,26 @@ if(!$_SESSION['valid_user_id']){
           $query="SELECT * FROM `product`";
         }
 
-        // $tempString = "";
-        // $index = 0;
-
-        // foreach($_SESSION['searchedProducts'] as $productID){
-        //   if(index == 0){
-        //     $tempString = 
-        //   $tempString = $tempString + $productID
-
-        // }
-
         $timezone = date_default_timezone_get();
         date_default_timezone_set($timezone);
     
         $result = $conn->query($query);
+        $disabled = "";
         
         if ($result->num_rows > 0){
           while($row = mysqli_fetch_array($result)){
-            $time = date("h:i:s a", $row["TimePlaced"] + $row["TimeLeft"]);
+            $time = new DateTime($row["TimePlaced"]);
+            $string = 'PT'.$row['TimeLeft'].'S';
+            //echo $string;
+            $time->add(new DateInterval($string));
+            //echo $time."<br>";
+            //$time = date_format($time, "M d Y h:i:s");
+            $time = $time->getTimestamp()."<br>";
+            //echo strtotime($time);
+            echo time();
+            if($time < time()){
+               $disabled = "disabled";
+            }
             echo '<div class="col-md-2 product">'.
                     '<div class="row productName text-center">'.
                       '<h5>'.$row["Name"].'</h5>'.
@@ -89,10 +91,10 @@ if(!$_SESSION['valid_user_id']){
                       '<img class="img-thumbnail" src="product-img/'.$row["Img"].'"/>'.
                     '</div>'.
                     '<div class="row productTime text-center">'.
-                      '<p class="small" style="padding-bottom:12px;padding-top:5px;">Deadline: '.$time.'</p>'.
+                      '<p class="small" style="padding-bottom:12px;padding-top:5px;">'.$time.'</p>'.
                     '</div>'.
                     '<div class="row productBtn">'.
-                      '<button type="button" class="btn btn-default btn-block" data-toggle="modal" data-target="#product'.$row["ProductID"].'">$'.$row["Price"].' Bid Now</button>'.
+                      '<button type="button" class="btn btn-default btn-block" data-toggle="modal" data-target="#product'.$row["ProductID"].'" '.$disabled.'>$'.$row["Price"].' Bid Now</button>'.
                     '</div>'.
                   '</div>'.
                   '<div class="modal fade" id="product'.$row["ProductID"].'" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">'.
