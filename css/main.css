@@ -79,3 +79,40 @@
 #inputLabel{
     color:#ffffff;
 }
+
+#userButton>a>span{
+    color: white;
+}
+
+#AuctionsList{
+/*    border:1px solid black;*/
+    border-radius:5px;
+}
+
+.product{
+    margin:18px;
+    height:260px;
+    background-color: #0c131b;
+}
+
+.productImg{
+    height:150px;
+    margin-top:15px!important;
+    background-image: #ffffff;
+}
+
+.productTime{
+    margin-bottom:-18px!important;
+    margin-top:2px!important;
+    color:#ffffff;
+}
+
+.productName{
+    margin-bottom:-15px!important;
+    color:#ffffff;
+}
+
+.antiLink, .antiLink:hover{
+    color:white;
+    text-decoration: none;
+}

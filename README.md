@@ -1,6 +1,6 @@
 # OnlineAuction
 
-# DESCRPTION HERE OF WHAT THE THINGY DOES 
+# It is one of my class projects. I used PHP, MySQL, Boostrap to finish the website
 
 # Next Steps 
 

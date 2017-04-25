@@ -30,7 +30,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST"){
 	
 	if($results == 0){
 		$_SESSION["NoResults"] = 1;
-		header('Location:index.php');
+		header('Location:userProfile.php');
 	}
 }
 ?>
